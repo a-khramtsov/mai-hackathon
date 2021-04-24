@@ -9,7 +9,7 @@ class Airline(models.Model):
     name = models.CharField(
         max_length=150
     )
-    logo = models.ImageField(upload_to='static/airline_logos', null=True, blank=True)
+    logo = models.ImageField(upload_to='airline_logos/', null=True, blank=True)
 
 
 class UserManager(BaseUserManager):
@@ -28,7 +28,7 @@ class User(AbstractUser):
     last_name = models.CharField(_('surname'), max_length=30, blank=True)
     date_joined = models.DateTimeField(_('registered'), auto_now_add=True)
     is_active = models.BooleanField(_('is_active'), default=True)
-    avatar = models.ImageField(upload_to='static/avatars/', null=True, blank=True)
+    avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ["username"]
     airline = models.ForeignKey(Airline, null=True, blank=True, default=None, on_delete=models.SET_NULL)
