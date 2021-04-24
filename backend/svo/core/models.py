@@ -40,8 +40,8 @@ class Resource(models.Model):
     title = models.TextField()
     description = models.TextField()
     photo = models.ImageField()
-    geo_lat = models.IntegerField()
-    geo_lon = models.IntegerField()
+    geo_lat = models.FloatField()
+    geo_lon = models.FloatField()
 
 
 class Application(models.Model):
