@@ -26,8 +26,9 @@ SECRET_KEY = '@bdm3e_9u)im83u3ee&198nk)^qapv_z&t7&x6va6r5-b7xbd!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [
+    'http://api.svo.lapotnikov.ru'
+]
 
 # Application definition
 
