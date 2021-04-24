@@ -43,3 +43,26 @@ class Application(models.Model):
     end_time = models.DateTimeField()
     status = models.IntegerField(choices=ApplicationStatuses.choices, default=ApplicationStatuses.NEW)
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+
+    def approve_by_airline(self):
+        self.status = Application.ApplicationStatuses.APPROVED_BY_AIRLINE
+        self.save()
+
+    def approve_by_dispatcher(self):
+        self.status = Application.ApplicationStatuses.APPROVED_BY_DISPATCHER
+        self.save()
+
+    def refuse_by_airline(self):
+        self.status = Application.ApplicationStatuses.REFUSED_BY_AIRLINE
+        self.save()
+
+    def refuse_by_dispatcher(self):
+        self.status = Application.ApplicationStatuses.REFUSED_BY_DISPATCHER
+        self.save()
+
+    def approve_changes(self):
+        if self.status == Application.ApplicationStatuses.EDITED_BY_AIRLINE:
+            self.approve_by_airline()
+        else:
+            self.approve_by_dispatcher()
+
