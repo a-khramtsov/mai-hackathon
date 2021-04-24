@@ -1,8 +1,8 @@
 import React, { useEffect, MouseEvent } from 'react'
-import { VoidFuncType } from 'types/common'
+
 
 export const useClickOutside = (
-	close: VoidFuncType,
+	close: () => void,
 	elementRef: React.MutableRefObject<HTMLDivElement | any>,
 	buttonRef?: React.MutableRefObject<HTMLButtonElement | any>,
 ) => {

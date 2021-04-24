@@ -15,13 +15,13 @@ const initialState = {
 export const login = createAsyncThunk<LoginResponseType, LoginPayloadType>(
 	'me/login',
 	async (payload, { dispatch, rejectWithValue }) => {
-		const { login, password } = payload
+		const { email, password } = payload
 
 		try {
-			const response = await securityAPI.login(login, password)
+			const response = await securityAPI.login(email, password)
 			if (response?.status === 200) {
-				Cookies.set('access-token', response.data.accessToken)
-				Cookies.set('refresh-token', response.data.refreshToken)
+				Cookies.set('access-token', response.data.access)
+				Cookies.set('refresh-token', response.data.refresh)
 				dispatch(authUser())
 			}
 
@@ -31,7 +31,11 @@ export const login = createAsyncThunk<LoginResponseType, LoginPayloadType>(
 		}
 	},
 )
-
+export const logout = createAsyncThunk('me/logout', async (payload, { dispatch }) => {
+	Cookies.remove('access-token')
+	Cookies.remove('refresh-token')
+	dispatch(setLogged(false))
+})
 export const getUserInfo = createAsyncThunk(
 	'me/getUserInfo',
 	async (payload, { dispatch, rejectWithValue }) => {

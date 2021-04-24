@@ -5,15 +5,12 @@ import { LoginResponseType } from './types'
 
 export const securityAPI = {
 	login: (email: string, password: string): Promise<AxiosResponse<LoginResponseType>> => {
-		return instance.post('/security/signIn', { email, password })
+		return instance.post('/token/', { email, password })
 	},
 	getUserInfo: (): Promise<AxiosResponse<MeType>> => {
-		return instance.get('/profile')
-	},
-	updateUserInfo(data: MeType) {
-		return instance.put('/}', data)
+		return instance.get('/core/users/info/')
 	},
 	refreshToken(refresh: string) {
-		return instance.post('', { refresh })
+		return instance.post('/token/refresh/', { refresh })
 	},
 }

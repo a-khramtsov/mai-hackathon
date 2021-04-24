@@ -1,20 +1,24 @@
+import React from 'react'
 import { FC, useState } from 'react'
 import { Formik, Form } from 'formik'
 import * as yup from 'yup'
-import { login } from 'redux/me/meSlice'
+import { login, setLogged } from 'redux/me/meSlice'
 import { LoginInput } from './LoginInput'
 import { ChangeType } from 'types/common'
 import { createUseStyles } from 'react-jss'
 import { LoginPayloadType } from 'redux/me/types'
 import { useAppDispatch } from 'redux/store'
 import { unwrapResult } from '@reduxjs/toolkit'
+import FormikInput from 'components/Common/Controls/Formik/Input'
+import { ErrorMessage } from 'components/Common/Controls/Formik/styled'
+import styled from 'styled-components'
 
 const Login: FC = () => {
 	const styles = useStyles()
 	const dispatch = useAppDispatch()
 
 	const validationSchema = yup.object({
-		login: yup.string().required('Обязательное поле'),
+		email: yup.string().email("Некорректный Email").required('Обязательное поле'),
 		password: yup
 			.string()
 			.min(8, 'Минимальная длина 8 символов')
@@ -31,7 +35,9 @@ const Login: FC = () => {
 		setSubmitting(true)
 
 		const response = await dispatch(login(dataObj))
-		const payload = unwrapResult(response)
+		if (!response.type.endsWith('fulfilled')) {
+			setError('Неверный логин или пароль')
+		}
 
 		setSubmitting(false)
 	}
@@ -40,38 +46,45 @@ const Login: FC = () => {
 		<div className={styles.root}>
 			<Formik
 				validateOnChange={true}
-				initialValues={{ login: '', password: '' }}
+				initialValues={{ email: 'admin@svo.ru', password: 'qwerty1234' }}
 				validationSchema={validationSchema}
 				enableReinitialize={true}
 				onSubmit={(data, { setSubmitting }) => {
 					handleSubmit(data, setSubmitting)
 				}}
 			>
-				{({ values, setFieldValue, isSubmitting }) => (
+				{({ errors, isSubmitting }) => (
 					<Form className={styles.form}>
+
 						<h2 className={styles.title}>Вход</h2>
-						<LoginInput
-							placeholder='Логин'
-							value={values.login}
-							onChange={(e: ChangeType) => setFieldValue('login', e.target.value)}
+						<FormikInput
+							placeholder='Email'
+							name='email'
+							Component={LoginInput}
 						/>
-						<LoginInput
+
+						<FormikInput
 							placeholder='Пароль'
-							value={values.password}
-							onChange={(e: ChangeType) => setFieldValue('password', e.target.value)}
+							name='password'
+							type='password'
+							Component={LoginInput}
 						/>
 
 						<button className={styles.button} disabled={isSubmitting}>
 							Войти
 						</button>
 
-						<p>{err}</p>
+						<StyledErrorMessage>{err}</StyledErrorMessage>
 					</Form>
 				)}
 			</Formik>
 		</div>
 	)
 }
+
+const StyledErrorMessage = styled(ErrorMessage)`
+	text-align: center;
+`
 
 const useStyles = createUseStyles({
 	root: {

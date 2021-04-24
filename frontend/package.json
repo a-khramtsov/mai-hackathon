@@ -1,98 +1,75 @@
 {
-	"name": "react-template",
-	"version": "0.1.0",
-	"private": false,
-	"dependencies": {
-		"@reduxjs/toolkit": "^1.5.0",
-		"@testing-library/jest-dom": "^5.11.9",
-		"@testing-library/react": "^11.2.5",
-		"@testing-library/user-event": "^12.8.1",
-		"@types/axios": "^0.14.0",
-		"@types/classnames": "^2.2.11",
-		"@types/date-fns": "^2.6.0",
-		"@types/jest": "^26.0.20",
-		"@types/js-cookie": "^2.2.6",
-		"@types/node": "^12.20.4",
-		"@types/react": "^17.0.2",
-		"@types/react-dom": "^17.0.1",
-		"@types/react-jss": "^10.0.0",
-		"@types/react-redux": "^7.1.16",
-		"@types/react-router": "^5.1.12",
-		"@types/react-router-dom": "^5.1.7",
-		"@types/react-toastify": "^4.1.0",
-		"@types/redux": "^3.6.0",
-		"@types/redux-logger": "^3.0.8",
-		"@types/styled-components": "^5.1.9",
-		"@types/yup": "^0.29.11",
-		"axios": "^0.21.1",
-		"classnames": "^2.3.1",
-		"date-fns": "^2.21.0",
-		"eslint-config-prettier": "^8.2.0",
-		"eslint-plugin-prettier": "^3.3.1",
-		"eslint-plugin-react-hooks": "^4.2.0",
-		"formik": "^2.2.6",
-		"js-cookie": "^2.2.1",
-		"lint-staged": "^10.5.4",
-		"node-sass": "^4.14.0",
-		"prettier": "^2.2.1",
-		"react": "^17.0.1",
-		"react-dom": "^17.0.1",
-		"react-jss": "^10.6.0",
-		"react-redux": "^7.2.2",
-		"react-router": "^5.2.0",
-		"react-router-dom": "^5.2.0",
-		"react-scripts": "4.0.3",
-		"react-toastify": "^7.0.3",
-		"redux": "^4.0.5",
-		"redux-logger": "^3.0.6",
-		"styled-components": "^5.2.3",
-		"typescript": "^4.2.2",
-		"web-vitals": "^1.1.0",
-		"yup": "^0.32.9"
-	},
-	"scripts": {
-		"start": "react-scripts start",
-		"build": "yarn lint && react-scripts build",
-		"lint": "eslint --ext .ts, .tsx --fix src",
-		"test": "react-scripts test",
-		"eject": "react-scripts eject",
-		"prepare": "yarn lint && husky install",
-		"precommit": "lint-staged"
-	},
-	"eslintConfig": {
-		"extends": [
-			"react-app",
-			"react-app/jest"
-		]
-	},
-	"browserslist": {
-		"production": [
-			">0.2%",
-			"not dead",
-			"not op_mini all"
-		],
-		"development": [
-			"last 1 chrome version",
-			"last 1 firefox version",
-			"last 1 safari version"
-		]
-	},
-	"devDependencies": {
-		"@typescript-eslint/eslint-plugin": "^4.22.0",
-		"@typescript-eslint/parser": "^4.22.0",
-		"eslint": "^7.24.0",
-		"eslint-plugin-react": "^7.23.2",
-		"husky": "^6.0.0"
-	},
-	"lint-staged": {
-		"*.{js, jsx, ts, tsx}": [
-			"prettier --write",
-			"git add"
-		]
-	},
-	"husky": {
-		"hooks": {
-			"pre-commit": "lint-staged"
-		}
-	}
+  "name": "localchair",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.29",
+    "@fortawesome/free-solid-svg-icons": "^5.13.1",
+    "@fortawesome/react-fontawesome": "^0.1.11",
+    "@material-ui/core": "^4.11.0",
+    "@reduxjs/toolkit": "^1.5.1",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "@types/alertify": "^0.3.30",
+    "@types/axios": "^0.14.0",
+    "@types/classnames": "^2.2.10",
+    "@types/jest": "^24.9.1",
+    "@types/js-cookie": "^2.2.6",
+    "@types/node": "^12.12.48",
+    "@types/query-string": "^6.3.0",
+    "@types/react": "^16.9.41",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-jss": "^10.0.0",
+    "@types/react-redux": "^7.1.9",
+    "@types/react-router": "^5.1.8",
+    "@types/react-router-dom": "^5.1.5",
+    "@types/react-toastify": "^4.1.0",
+    "@types/redux": "^3.6.0",
+    "@types/redux-thunk": "^2.1.0",
+    "@types/styled-components": "^5.1.1",
+    "@types/yup": "^0.29.3",
+    "alertifyjs": "^1.13.1",
+    "axios": "^0.19.2",
+    "classnames": "^2.2.6",
+    "formik": "^2.1.4",
+    "js-cookie": "^2.2.1",
+    "node-sass": "^4.14.1",
+    "query-string": "^6.13.1",
+    "react": "17.0.0",
+    "react-dom": "^16.13.1",
+    "react-jss": "^10.6.0",
+    "react-logger": "^1.1.0",
+    "react-redux": "^7.2.0",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.1",
+    "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-thunk": "^2.3.0",
+    "styled-components": "^5.1.1",
+    "typescript": "^3.7.5",
+    "yup": "^0.29.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }

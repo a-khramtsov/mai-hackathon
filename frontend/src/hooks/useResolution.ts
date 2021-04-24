@@ -13,11 +13,14 @@ function useResolution(resoultion = 480) {
 	}, [])
 
 	const handleResize = () => {
-		let isMobileDevice = !!navigator.userAgent.match(/Mobile/) || false
-		let width = window.innerWidth
+		const isMobileDevice = !!navigator.userAgent.match(/Mobile/) || false
+		const width = window.innerWidth
 
-		if (width <= resoultion) setIsMobile(true)
-		else setIsMobile(false)
+		if (width <= resoultion) {
+			setIsMobile(true)
+		} else {
+			setIsMobile(false)
+		}
 	}
 
 	return isMobile

@@ -1,11 +1,13 @@
 import Axios, { AxiosResponse } from 'axios'
 import Cookies from 'js-cookie'
+
 import { securityAPI } from './requestsRepository/security'
+import { applicationsAPI } from './requestsRepository/applications'
 
 export const baseURL = process.env.REACT_APP_API_URL
 
 export const instance = Axios.create({
-	baseURL,
+	baseURL: baseURL + '/api',
 	headers: {
 		'Content-Type': 'application/json',
 	},
@@ -28,13 +30,13 @@ instance.interceptors.response.use(
 
 			const refreshToken = Cookies.get('refresh-token') ?? ''
 
-			const response = (await securityAPI.refreshToken(refreshToken)) as AxiosResponse
-			if (response.status === 200) {
-				const { access } = response.data
-				Cookies.set('access-token', access)
-				originalRequest.headers['Authorization'] = 'Bearer ' + access
-				return Axios(originalRequest)
-			}
+			// const response = (await securityAPI.refreshToken(refreshToken)) as AxiosResponse
+			// if (response.status === 200) {
+			// 	const { access } = response.data
+			// 	Cookies.set('access-token', access)
+			// 	originalRequest.headers['Authorization'] = 'Bearer ' + access
+			// 	return Axios(originalRequest)
+			// }
 		}
 
 		return Promise.reject(error.response)
@@ -45,4 +47,4 @@ export const setAxiosToken = (token: string) => {
 	instance.defaults.headers.Authorization = 'Bearer ' + token
 }
 
-export { securityAPI }
+export { securityAPI, applicationsAPI }

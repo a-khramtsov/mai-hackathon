@@ -5,6 +5,8 @@ export const validationMessages = {
 	numeric: 'Введите число',
 	email: 'Неверный email',
 	phone: 'Неверный номер телефона',
+	minLength: (count: number) => `Минимальное количество символов: ${count}`,
+	maxLength: (count: number) => `Максимальное количество символов: ${count}`,
 }
 
 export const REQUIRED_STRING = Yup.string().required(validationMessages.required)

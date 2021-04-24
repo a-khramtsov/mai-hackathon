@@ -2,14 +2,14 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
 import meReducer from './me/meSlice'
 import appReducer from './app/appSlice'
 import { useDispatch } from 'react-redux'
-import logger from 'redux-logger'
+// import logger from 'redux-logger'
 import thunk from 'redux-thunk'
 export const store = configureStore({
 	reducer: {
 		me: meReducer,
 		app: appReducer,
 	},
-	middleware: getDefaultMiddleware => getDefaultMiddleware().concat(thunk).concat(logger),
+	middleware: getDefaultMiddleware => getDefaultMiddleware().concat(thunk),
 })
 
 export type RootState = ReturnType<typeof store.getState>
