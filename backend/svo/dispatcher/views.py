@@ -20,14 +20,14 @@ class ApplicationViewSet(viewsets.ModelViewSet):
     def perform_update(self, serializer):
         return serializer.save(status=Application.ApplicationStatuses.EDITED_BY_DISPATCHER)
 
-    @swagger_auto_schema(method='post', operation_description="POST /api/dispatcher/applications/{id}/approve/")
+    @swagger_auto_schema(method='post', auto_schema=None, operation_description="POST /api/dispatcher/applications/{id}/approve/")
     @action(methods=["POST"], detail=True)
     def approve(self):
         application = self.get_object()
         application.approve_by_dispatcher()
         return Response(status=204)
 
-    @swagger_auto_schema(method='post', operation_description="POST /api/dispatcher/applications/{id}/refuse/")
+    @swagger_auto_schema(method='post', auto_schema=None, operation_description="POST /api/dispatcher/applications/{id}/refuse/")
     @action(methods=["POST"], detail=True)
     def refuse(self):
         application = self.get_object()
