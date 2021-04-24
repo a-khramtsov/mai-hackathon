@@ -7,6 +7,6 @@ class ApplicationFilterSet(filters.FilterSet):
     class Meta:
         model = Application
         fields = {
-            'status': '__all__',
+            'status': ('exact', 'in'),
             'id': '__all__'
         }
