@@ -11,7 +11,7 @@ class AirlineSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     airline = AirlineSerializer(read_only=True)
-    estimation = serializers.FloatField
+    estimation = serializers.FloatField()
 
     class Meta:
         model = models.User
