@@ -61,6 +61,7 @@ class Application(models.Model):
         REFUSED_BY_DISPATCHER = 6, 'REFUSED_BY_DISPATCHER'
         EDITED_BY_DISPATCHER = 7, 'EDITED_BY_DISPATCHER'
         APPROVED_BY_WORKER_BUT_NOT_BY_AIRLINE = 8, 'APPROVED_BY_WORKER_BUT_NOT_BY_AIRLINE'
+
     resource = models.ForeignKey(Resource, related_name='resource_applications', on_delete=models.CASCADE)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
