@@ -5,3 +5,4 @@ from . import models
 admin.site.register(models.User)
 admin.site.register(models.Resource)
 admin.site.register(models.Application)
+admin.site.register(models.Airline)
