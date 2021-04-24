@@ -51,10 +51,12 @@ const Login: FC = () => {
 					<Form className={styles.form}>
 						<h2 className={styles.title}>Вход</h2>
 						<LoginInput
+							placeholder='Логин'
 							value={values.login}
 							onChange={(e: ChangeType) => setFieldValue('login', e.target.value)}
 						/>
 						<LoginInput
+							placeholder='Пароль'
 							value={values.password}
 							onChange={(e: ChangeType) => setFieldValue('password', e.target.value)}
 						/>
@@ -96,7 +98,7 @@ const useStyles = createUseStyles({
 		fontWeight: 900,
 		fontSize: '48px',
 		lineHeight: '56px',
-		marginBottom: '70px',
+		marginBottom: '30px',
 	},
 	button: {
 		fontWeight: 'bold',
