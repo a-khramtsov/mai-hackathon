@@ -33,7 +33,7 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ["username"]
     airline = models.ForeignKey(Airline, null=True, default=None, on_delete=models.SET_NULL)
 
-    objects = UserManager
+    objects = UserManager()
 
 
 class Resource(models.Model):
