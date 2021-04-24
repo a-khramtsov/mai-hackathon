@@ -1,0 +1,5 @@
+/backend/venv/
+/backend/svo/worker/migrations/
+/backend/svo/dispatcher/migrations/
+/backend/svo/core/migrations/
+/backend/svo/airline/migrations/
