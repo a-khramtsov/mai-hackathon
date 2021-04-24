@@ -11,11 +11,11 @@ class AirlineSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     airline = AirlineSerializer(read_only=True)
-    estimation = serializers.FloatField()
+    estimation = serializers.FloatField(read_only=True)
 
     class Meta:
         model = models.User
-        fields = ["id", "email", "username", "first_name", "last_name", "avatar", "airline", "estimation"]
+        fields = ["id", "email", "username", "first_name", "last_name", "avatar", "airline"]
 
 
 class CoreResourceSerializer(serializers.ModelSerializer):
