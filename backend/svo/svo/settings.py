@@ -118,6 +118,7 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=2),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=5),
 }
+AUTH_USER_MODEL = 'core.User'
 
 
 # Internationalization

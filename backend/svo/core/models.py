@@ -1,8 +1,20 @@
+from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
 
-# Create your models here.
+class User(AbstractUser):
+    email = models.EmailField(_('email'), unique=True)
+    first_name = models.CharField(_('name'), max_length=30, blank=True)
+    last_name = models.CharField(_('surname'), max_length=30, blank=True)
+    date_joined = models.DateTimeField(_('registered'), auto_now_add=True)
+    is_active = models.BooleanField(_('is_active'), default=True)
+    avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
 
 class Resource(models.Model):
     title = models.TextField()
