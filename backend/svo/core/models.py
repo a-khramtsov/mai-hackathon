@@ -4,6 +4,13 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 
+class Airline(models.Model):
+    name = models.CharField(
+        max_length=150
+    )
+    logo = models.ImageField(upload_to='airline_logos', null=True, blank=True)
+
+
 class User(AbstractUser):
     email = models.EmailField(_('email'), unique=True)
     username = models.CharField(
@@ -14,9 +21,9 @@ class User(AbstractUser):
     date_joined = models.DateTimeField(_('registered'), auto_now_add=True)
     is_active = models.BooleanField(_('is_active'), default=True)
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
-
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ["username"]
+    airline = models.ForeignKey(Airline, null=True, default=None, on_delete=models.SET_NULL)
 
 
 class Resource(models.Model):
@@ -37,13 +44,16 @@ class Application(models.Model):
         APPROVED_BY_DISPATCHER = 5, 'APPROVED_BY_DISPATCHER'
         REFUSED_BY_DISPATCHER = 6, 'REFUSED_BY_DISPATCHER'
         EDITED_BY_DISPATCHER = 7, 'EDITED_BY_DISPATCHER'
-        APPROVED_BY_WORKER_BUT_NOT_BY_AIRLINE = 8, 'EDITED_BY_DISPATCHER'
+        APPROVED_BY_WORKER_BUT_NOT_BY_AIRLINE = 8, 'APPROVED_BY_WORKER_BUT_NOT_BY_AIRLINE'
     resource = models.ForeignKey(Resource, on_delete=models.CASCADE)
-    description = models.TextField(default="", blank=True)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
     status = models.IntegerField(choices=ApplicationStatuses.choices, default=ApplicationStatuses.NEW)
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+
+    service_estimation = models.IntegerField(null=True)
+    worker_estimation = models.IntegerField(null=True)
+    resource_estimation = models.IntegerField(null=True)
 
     def approve_by_airline(self):
         self.status = Application.ApplicationStatuses.APPROVED_BY_AIRLINE
