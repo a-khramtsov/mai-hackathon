@@ -10,5 +10,13 @@ export const LoginInput = (props: PropsType & React.InputHTMLAttributes<HTMLInpu
 }
 
 const useStyles = createUseStyles({
-	root: {},
+	root: {
+		width: '100%',
+		border: 'none',
+		borderBottom: '1px solid rgba(0, 0, 0, 0.38)',
+		padding: '5px 0',
+		fontSize: '16px',
+		lineHeight: '24px',
+		marginTop: 20,
+	},
 })
