@@ -22,14 +22,14 @@ class ApplicationViewSet(viewsets.ModelViewSet):
 
     @swagger_auto_schema(method='get', operation_description="GET /api/dispatcher/applications/{id}/approve/")
     @action(methods=["GET"], detail=True)
-    def approve(self, pk):
+    def approve(self, *args, **kwargs):
         application = self.get_object()
         application.approve_by_dispatcher()
         return Response(status=204)
 
     @swagger_auto_schema(method='get', operation_description="GET /api/dispatcher/applications/{id}/refuse/")
     @action(methods=["GET"], detail=True)
-    def refuse(self, pk):
+    def refuse(self, *args, **kwargs):
         application = self.get_object()
         application.refuse_by_dispatcher()
         return Response(status=204)
