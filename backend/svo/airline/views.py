@@ -20,7 +20,10 @@ class ApplicationViewSet(viewsets.ModelViewSet):
     filterset_class = ApplicationFilterSet
 
     def get_queryset(self):
-        return super().get_queryset().filter(user__airline_id=self.request.user.airline.id)
+        if self.request.user.airline_id:
+            return super().get_queryset().filter(user__airline_id=self.request.user.airline_id)
+        else:
+            return super().get_queryset()
 
     def perform_update(self, serializer):
         return serializer.save(status=Application.ApplicationStatuses.EDITED_BY_AIRLINE)
