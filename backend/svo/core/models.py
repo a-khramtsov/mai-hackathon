@@ -1,6 +1,7 @@
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, UserManager as BaseUserManager
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.db.models import Avg
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -9,6 +10,13 @@ class Airline(models.Model):
         max_length=150
     )
     logo = models.ImageField(upload_to='static/airline_logos', null=True, blank=True)
+
+
+class UserManager(BaseUserManager):
+    def get_queryset(self):
+        return super().get_queryset()\
+            .annotate(estimation=Avg('user_applications__worker_estimation',
+                                                              output_field=models.FloatField))
 
 
 class User(AbstractUser):
@@ -24,6 +32,8 @@ class User(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ["username"]
     airline = models.ForeignKey(Airline, null=True, default=None, on_delete=models.SET_NULL)
+
+    objects = UserManager
 
 
 class Resource(models.Model):
@@ -45,11 +55,11 @@ class Application(models.Model):
         REFUSED_BY_DISPATCHER = 6, 'REFUSED_BY_DISPATCHER'
         EDITED_BY_DISPATCHER = 7, 'EDITED_BY_DISPATCHER'
         APPROVED_BY_WORKER_BUT_NOT_BY_AIRLINE = 8, 'APPROVED_BY_WORKER_BUT_NOT_BY_AIRLINE'
-    resource = models.ForeignKey(Resource, on_delete=models.CASCADE)
+    resource = models.ForeignKey(Resource, related_name='resource_applications', on_delete=models.CASCADE)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
     status = models.IntegerField(choices=ApplicationStatuses.choices, default=ApplicationStatuses.NEW)
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    user = models.ForeignKey(get_user_model(), related_name='user_applications', on_delete=models.CASCADE)
 
     service_estimation = models.IntegerField(null=True)
     worker_estimation = models.IntegerField(null=True)
