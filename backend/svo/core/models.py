@@ -31,7 +31,7 @@ class User(AbstractUser):
     avatar = models.ImageField(upload_to='static/avatars/', null=True, blank=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ["username"]
-    airline = models.ForeignKey(Airline, null=True, default=None, on_delete=models.SET_NULL)
+    airline = models.ForeignKey(Airline, null=True, blank=True, default=None, on_delete=models.SET_NULL)
 
     objects = UserManager()
 
@@ -40,6 +40,12 @@ class Resource(models.Model):
     title = models.TextField()
     description = models.TextField()
     photo = models.ImageField()
+    geo_lat = models.IntegerField()
+    geo_lon = models.IntegerField()
+
+
+class ParkingPlace(models.Model):
+    code = models.CharField(max_length=100, unique=True)
     geo_lat = models.IntegerField()
     geo_lon = models.IntegerField()
 
