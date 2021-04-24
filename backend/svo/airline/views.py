@@ -22,14 +22,14 @@ class ApplicationViewSet(viewsets.ModelViewSet):
 
     @swagger_auto_schema(method='get', operation_description="GET /api/airline/applications/{id}/approve/")
     @action(methods=["get"], detail=True)
-    def approve(self):
+    def approve(self, pk):
         application = self.get_object()
         application.approve_by_airline()
         return Response(status=204)
 
     @swagger_auto_schema(method='get', uto_schema=None, operation_description="GET /api/airline/applications/{id}/refuse/")
     @action(methods=["get"], detail=True)
-    def refuse(self):
+    def refuse(self, pk):
         application = self.get_object()
         application.refuse_by_airline()
         return Response(status=204)
