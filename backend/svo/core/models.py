@@ -14,7 +14,9 @@ class Airline(models.Model):
 
 class UserManager(BaseUserManager):
     def get_queryset(self):
-        return super().get_queryset()
+        return super().get_queryset()\
+            .annotate(estimation=Avg('user_applications.worker_estimation',
+                                                              output_field=models.FloatField))
 
 
 class User(AbstractUser):
