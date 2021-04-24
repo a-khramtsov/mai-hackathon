@@ -27,7 +27,10 @@ SECRET_KEY = '@bdm3e_9u)im83u3ee&198nk)^qapv_z&t7&x6va6r5-b7xbd!'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'api.svo.lapotnikov.ru'
+    'localhost',
+    '127.0.0.1',
+    'api.svo.lapotnikov.ru',
+    'svo.lapotnikov.ru'
 ]
 
 # Application definition
