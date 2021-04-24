@@ -8,5 +8,5 @@ class ApplicationFilterSet(filters.FilterSet):
         model = Application
         fields = {
             'status': ('exact', 'in'),
-            'end_date': ('lte', )
+            'end_time': ('lte', )
         }
