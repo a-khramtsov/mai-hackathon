@@ -20,15 +20,15 @@ class ApplicationViewSet(viewsets.ModelViewSet):
     def perform_update(self, serializer):
         return serializer.save(status=Application.ApplicationStatuses.EDITED_BY_AIRLINE)
 
-    @swagger_auto_schema(method='post', auto_schema=None)
-    @action("POST", detail=True)
+    @swagger_auto_schema(method='post', operation_description="POST /api/airline/applications/{id}/approve/")
+    @action(methods=["POST"], detail=True)
     def approve(self):
         application = self.get_object()
         application.approve_by_airline()
         return Response(status=204)
 
-    @swagger_auto_schema(method='post', auto_schema=None)
-    @action("POST", detail=True)
+    @swagger_auto_schema(method='post', operation_description="POST /api/airline/applications/{id}/refuse/")
+    @action(methods=["POST"], detail=True)
     def refuse(self):
         application = self.get_object()
         application.refuse_by_airline()
