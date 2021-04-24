@@ -15,7 +15,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.User
-        fields = ["id", "email", "username", "first_name", "last_name", "avatar", "airline"]
+        fields = ["id", "email", "username", "first_name", "last_name", "avatar", "airline", "estimation"]
 
 
 class CoreResourceSerializer(serializers.ModelSerializer):
