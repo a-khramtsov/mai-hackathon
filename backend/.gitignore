@@ -3,3 +3,5 @@
 ./svo/dispatcher/migrations/
 ./svo/core/migrations/
 ./svo/airline/migrations/
+venv/
+svo/svo/__pycache__/
