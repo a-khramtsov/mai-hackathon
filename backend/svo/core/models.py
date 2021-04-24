@@ -49,6 +49,9 @@ class ParkingPlace(models.Model):
     geo_lat = models.IntegerField()
     geo_lon = models.IntegerField()
 
+    def __str__(self):
+        return self.code
+
 
 class Application(models.Model):
     class ApplicationStatuses(models.IntegerChoices):
@@ -67,6 +70,8 @@ class Application(models.Model):
     end_time = models.DateTimeField()
     status = models.IntegerField(choices=ApplicationStatuses.choices, default=ApplicationStatuses.NEW)
     user = models.ForeignKey(get_user_model(), related_name='user_applications', on_delete=models.CASCADE)
+
+    parking_place = models.ForeignKey(ParkingPlace, null=True, blank=True, on_delete=models.SET_NULL)
 
     service_estimation = models.IntegerField(null=True)
     worker_estimation = models.IntegerField(null=True)
