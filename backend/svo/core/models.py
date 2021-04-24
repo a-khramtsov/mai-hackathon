@@ -6,6 +6,9 @@ from django.utils.translation import ugettext_lazy as _
 
 class User(AbstractUser):
     email = models.EmailField(_('email'), unique=True)
+    username = models.CharField(
+        max_length=150, verbose_name='Псевдоним'
+    )
     first_name = models.CharField(_('name'), max_length=30, blank=True)
     last_name = models.CharField(_('surname'), max_length=30, blank=True)
     date_joined = models.DateTimeField(_('registered'), auto_now_add=True)
@@ -13,7 +16,7 @@ class User(AbstractUser):
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ["username"]
 
 
 class Resource(models.Model):
