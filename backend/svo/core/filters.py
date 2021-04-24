@@ -8,5 +8,4 @@ class ApplicationFilterSet(filters.FilterSet):
         model = Application
         fields = {
             'status': ('exact', 'in'),
-            'id': '__all__'
         }
