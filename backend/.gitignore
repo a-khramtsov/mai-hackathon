@@ -1,0 +1,5 @@
+./venv/
+./svo/worker/migrations/
+./svo/dispatcher/migrations/
+./svo/core/migrations/
+./svo/airline/migrations/
