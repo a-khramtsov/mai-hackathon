@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 
 from . import models, serializers
+from .serializers import ParkingPlaceSerializer
 
 
 class UserViewSet(viewsets.GenericViewSet):
@@ -17,3 +18,9 @@ class UserViewSet(viewsets.GenericViewSet):
         ser = self.get_serializer(request.user)
         return Response(ser.data, status=status.HTTP_200_OK)
 
+
+class ParkingPlaceViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = models.ParkingPlace.objects.all()
+    serializer_class = ParkingPlaceSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    pagination_class = None
