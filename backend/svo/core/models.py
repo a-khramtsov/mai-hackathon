@@ -37,6 +37,7 @@ class Application(models.Model):
         APPROVED_BY_DISPATCHER = 5, 'APPROVED_BY_DISPATCHER'
         REFUSED_BY_DISPATCHER = 6, 'REFUSED_BY_DISPATCHER'
         EDITED_BY_DISPATCHER = 7, 'EDITED_BY_DISPATCHER'
+        APPROVED_BY_WORKER_BUT_NOT_BY_AIRLINE = 8, 'EDITED_BY_DISPATCHER'
     resource = models.ForeignKey(Resource, on_delete=models.CASCADE)
     description = models.TextField(default="", blank=True)
     start_time = models.DateTimeField()
@@ -64,5 +65,6 @@ class Application(models.Model):
         if self.status == Application.ApplicationStatuses.EDITED_BY_AIRLINE:
             self.approve_by_airline()
         else:
-            self.approve_by_dispatcher()
+            self.status = Application.ApplicationStatuses.APPROVED_BY_WORKER_BUT_NOT_BY_AIRLINE
+            self.save()
 
