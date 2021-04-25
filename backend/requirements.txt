@@ -8,6 +8,7 @@ coreschema==0.0.4
 cryptography==3.4.7
 Django==3.2
 django-channels==0.7.0
+djangochannelsrestframework==0.2.1
 django-cors-headers==3.7.0
 django-filter==2.4.0
 django-push-notifications==2.0.0
