@@ -9,6 +9,7 @@ from rest_framework.response import Response
 from core.filters import ApplicationFilterSet
 from core.models import Application
 from core.serializers import CoreApplicationSerializer
+from core.notifications import notify_user
 from .serializers import EstimateSerializer
 
 
@@ -27,6 +28,7 @@ class ApplicationViewSet(viewsets.ModelViewSet):
     def approve(self, *args, **kwargs):
         application = self.get_object()
         application.approve_by_dispatcher()
+        notify_user(application.user, "Ваша заявка одобрена диспетчером")
         return Response(status=204)
 
     @swagger_auto_schema(method='get', operation_description="GET /api/dispatcher/applications/{id}/refuse/")
@@ -34,6 +36,7 @@ class ApplicationViewSet(viewsets.ModelViewSet):
     def refuse(self, *args, **kwargs):
         application = self.get_object()
         application.refuse_by_dispatcher()
+        notify_user(application.user, "Ваша заявка отклонена диспетчером")
         return Response(status=204)
 
     @swagger_auto_schema(method="post", request_body=openapi.Schema(

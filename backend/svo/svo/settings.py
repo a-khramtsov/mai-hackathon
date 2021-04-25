@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'drf_yasg',
+    "push_notifications",
 
     'core',
     'airline',
@@ -118,6 +119,10 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+}
+
+PUSH_NOTIFICATIONS_SETTINGS = {
+    "FCM_API_KEY": "AAAArDSaorY:APA91bE_bZjxYs0rOg17Jqe59a-ZDEWtelWq7U7AP2MKlNlTObGVmGlQMRy7Sg7rlDm5Y3FIBdVdMeoyUKcRw7IBQSz3MP30tl3x7B64FoTQYRoC8o_X-34rxxXhnsTHugFOZBoi6pD3"
 }
 
 SIMPLE_JWT = {

@@ -8,7 +8,9 @@ from rest_framework.response import Response
 
 from core.filters import ApplicationFilterSet
 from core.models import Application
+from core.notifications import notify_user
 from core.serializers import CoreApplicationSerializer
+from push_notifications.models import GCMDevice
 
 
 class ApplicationViewSet(viewsets.ModelViewSet):
@@ -34,6 +36,7 @@ class ApplicationViewSet(viewsets.ModelViewSet):
     def approve(self, *args, **kwargs):
         application = self.get_object()
         application.approve_by_airline()
+        notify_user(application.user, "Ваша заявка одобрена авиакомпанией")
         return Response(status=204)
 
     @swagger_auto_schema(method='get', uto_schema=None,
@@ -42,4 +45,5 @@ class ApplicationViewSet(viewsets.ModelViewSet):
     def refuse(self, *args, **kwargs):
         application = self.get_object()
         application.refuse_by_airline()
+        notify_user(application.user, "Ваша заявка отклонена авиакомпанией")
         return Response(status=204)
