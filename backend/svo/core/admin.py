@@ -11,7 +11,7 @@ admin.site.register(models.ParkingPlace)
 
 
 class ExternalTaskAdmin(admin.ModelAdmin):
-    fields = (
+    list_display = (
         'resource_title',
         'resource_description',
         'resource_geo_lat',
