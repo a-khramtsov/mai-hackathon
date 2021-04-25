@@ -1,5 +1,6 @@
 # Create your models here.
 from django_filters import rest_framework as filters
+from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import viewsets
 from rest_framework.decorators import action
@@ -35,7 +36,13 @@ class ApplicationViewSet(viewsets.ModelViewSet):
         application.refuse_by_dispatcher()
         return Response(status=204)
 
-    @swagger_auto_schema(method="post", operation_description="POST /api/dispatcher/applications/{id}/estimate/")
+    @swagger_auto_schema(method="post", request_body=openapi.Schema(
+                             type=openapi.TYPE_OBJECT,
+                             required=['estimation'],
+                             properties={
+                                 'estimation': openapi.Schema(type=openapi.TYPE_INTEGER)
+                             },
+                         ), operation_description="POST /api/dispatcher/applications/{id}/estimate/")
     @action(methods=["POST"], detail=True)
     def estimate(self, *args, **kwargs):
         application = self.get_object()
