@@ -33,3 +33,11 @@ class ApplicationViewSet(viewsets.ModelViewSet):
         application = self.get_object()
         application.refuse_by_dispatcher()
         return Response(status=204)
+
+    @swagger_auto_schema(method="post", request_body=EstimateSerializer, operation_description="POST /api/dispatcher/applications/{id}/estimate/")
+    @action(methods=["POST"], detail=True)
+    def estimate(self):
+        application = self.get_object()
+        application.worker_estimation = self.request.data['estimation']
+        application.save()
+        return Response(status=204)
