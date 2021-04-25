@@ -45,6 +45,15 @@ class User(AbstractUser):
             (' ' + self.first_name + ' ' + self.last_name) if self.first_name and self.last_name else '')
 
 
+class ResourceManager(models.Manager):
+    use_for_related_fields = True
+
+    def get_queryset(self):
+        return super().get_queryset() \
+            .annotate(estimation=Avg('resource_applications__resource_estimation',
+                                     output_field=models.FloatField()))
+
+
 class Resource(models.Model):
     title = models.TextField()
     description = models.TextField()
