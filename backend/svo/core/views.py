@@ -2,6 +2,7 @@
 from rest_framework import generics, viewsets, status, mixins, permissions
 from rest_framework.response import Response
 from rest_framework.decorators import action
+from push_notifications.api.rest_framework import GCMDeviceAuthorizedViewSet
 
 from . import models, serializers
 from .serializers import ParkingPlaceSerializer
@@ -24,3 +25,7 @@ class ParkingPlaceViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = ParkingPlaceSerializer
     permission_classes = [permissions.IsAuthenticated]
     pagination_class = None
+
+
+class FCMDeviceAuthorizedViewSet(GCMDeviceAuthorizedViewSet):
+    serializer_class = serializers.FCMDeviceSerializer

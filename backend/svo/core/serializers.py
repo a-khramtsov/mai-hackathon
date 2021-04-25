@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from push_notifications.api.rest_framework import GCMDeviceSerializer, GCMDevice
 
 from . import models
 from .models import ParkingPlace
@@ -41,3 +42,13 @@ class CoreApplicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Application
         fields = '__all__'
+
+
+class FCMDeviceSerializer(GCMDeviceSerializer):
+
+    def create(self, validated_data):
+        validated_data['cloud_message_type'] = "FCM"
+        instance = GCMDevice.objects.create(
+            **validated_data
+        )
+        return instance
