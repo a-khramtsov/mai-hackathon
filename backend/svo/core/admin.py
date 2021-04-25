@@ -16,7 +16,7 @@ class ApplicationAdmin(admin.ModelAdmin):
         'pk',
         'resource',
         'user',
-        'parking_place'
+        'parking_place',
         'start_time',
         'end_time',
         'status'
