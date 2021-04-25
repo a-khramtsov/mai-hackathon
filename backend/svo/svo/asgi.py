@@ -3,8 +3,7 @@ import os
 import django
 from channels.http import AsgiHandler
 from channels.routing import ProtocolTypeRouter, URLRouter
-from django.urls import re_path
-
+from django.urls import re_path, path
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'svo.settings')
 django.setup()
