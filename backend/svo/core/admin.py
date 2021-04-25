@@ -14,14 +14,14 @@ admin.site.register(models.ParkingPlace)
 class ApplicationAdmin(admin.ModelAdmin):
     list_display = (
         'pk',
-        'resource__title',
-        'resource__photo'
-        'user__airline',
-        'user__email',
-        'user__username',
-        'user__first_name',
-        'user__last_name',
-        'parking_place__code'
+        'resource.title',
+        'resource.photo'
+        'user.airline',
+        'user.email',
+        'user.username',
+        'user.first_name',
+        'user.last_name',
+        'parking_place.code'
         'start_time',
         'end_time',
         'status'
