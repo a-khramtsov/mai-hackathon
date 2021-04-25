@@ -11,7 +11,20 @@ admin.site.register(models.ParkingPlace)
 
 
 class ExternalTaskAdmin(admin.ModelAdmin):
-    list_display = '__all__'
+    list_display = (
+        'resource_title',
+        'resource_description',
+        'resource_geo_lat',
+        'resource_geo_lon',
+        'start_time',
+        'end_time',
+        'airline',
+        'user_email',
+        'user_username',
+        'user_first_name',
+        'user_last_name',
+        'parking_place'
+    )
 
 
 admin.site.register(models.ExternalTask, ExternalTaskAdmin)
