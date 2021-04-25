@@ -12,6 +12,7 @@ admin.site.register(models.ParkingPlace)
 
 class ExternalTaskAdmin(admin.ModelAdmin):
     list_display = (
+        'pk',
         'resource_title',
         'resource_description',
         'resource_geo_lat',
