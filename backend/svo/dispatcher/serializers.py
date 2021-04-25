@@ -1,5 +1,5 @@
 from rest_framework import serializers
 
 
-class EstimateSerialize(serializers.ModelSerializer):
+class EstimateSerializer(serializers.ModelSerializer):
     estimation = serializers.IntegerField()
