@@ -1,0 +1,15 @@
+.desktop {
+	display: grid;
+	grid-template-columns: 370px auto;
+	grid-gap: 20px;
+	align-items: flex-start;
+}
+
+@media screen and (max-width: 768px) {
+	.desktop {
+		grid-template-columns: 1fr;
+		& > div:last-child {
+			display: none;
+		}
+	}
+}

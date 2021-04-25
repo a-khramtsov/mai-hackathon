@@ -1,0 +1,145 @@
+.projectBlock {
+	& .date {
+		font-size: 12px;
+		line-height: 15px;
+		color: #a6acbe;
+		display: flex;
+		justify-content: flex-end;
+	}
+
+	& .previewBlock {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-gap: 18px;
+
+		& img.projectImg {
+			width: 100%;
+			border-radius: 12px;
+		}
+
+		& .previewInfo {
+			& .placeInfo {
+				display: flex;
+				flex-direction: column;
+				width: 100%;
+				& > div {
+					width: 100%;
+				}
+
+				& img {
+					width: 50px;
+					height: 50px;
+					border-radius: 100%;
+					margin-right: 15px;
+				}
+
+				& .placeDetails {
+					display: flex;
+					flex-direction: column;
+
+					& .placeName {
+						color: #007eff;
+						font-weight: 600;
+						font-family: 'Proxima Nova Lt';
+						font-size: 16px;
+						line-height: 120%;
+					}
+
+					& .placeCategory {
+						font-size: 16px;
+						line-height: 16px;
+						color: #696969;
+						opacity: 0.6;
+					}
+				}
+			}
+		}
+
+		& .projectName {
+			margin: 10px 0 10px 0;
+			font-size: 16px;
+			line-height: 120%;
+			font-weight: bold;
+		}
+		& .price {
+			font-weight: bold;
+			font-size: 18px;
+			line-height: 22px;
+			color: #000000;
+
+			& span {
+				font-size: 16px;
+				line-height: 19px;
+				color: #a6acbe;
+			}
+		}
+	}
+
+	& .mainInfoBlock {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		margin: 20px 0;
+	}
+
+	& .pricesBlock table {
+		width: 100%;
+		margin: 15px 0 40px 0;
+
+		& th {
+			color: #a6acbe;
+		}
+		& td,
+		th {
+			box-shadow: 0px -1px 0px #eceeef;
+			text-align: center;
+			white-space: nowrap;
+			padding: 17px 5px;
+			font-weight: 600;
+			font-size: 13px;
+			line-height: 16px;
+		}
+	}
+
+	& .contentBlock {
+		margin-bottom: 15px;
+		&.bigMargin {
+			padding-top: 20px;
+		}
+		& h1 {
+			font-family: 'Proxima Nova Th';
+			font-weight: 800;
+			font-size: 18px;
+			line-height: 100%;
+		}
+
+		& h2 {
+			margin-top: 13px;
+			font-weight: bold;
+			font-size: 16px;
+		}
+
+		& p {
+			margin-top: 5px;
+			font-size: 14px;
+			line-height: 17px;
+		}
+	}
+}
+
+.flex {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.stars {
+	display: flex;
+
+	& .projectName {
+		margin: 0 0 0 10px !important;
+	}
+
+	& svg path {
+		fill: #ffb800;
+	}
+}

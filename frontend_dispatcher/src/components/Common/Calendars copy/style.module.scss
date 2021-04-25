@@ -1,0 +1,9 @@
+.calendarsBlock {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	margin-bottom: 28px;
+	& div {
+		margin-left: 10px;
+	}
+}

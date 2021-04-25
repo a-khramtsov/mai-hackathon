@@ -1,0 +1,67 @@
+@import '../../assets/scss/Colors.scss';
+
+.title {
+	font-family: 'Proxima Nova Rg' !important;
+	font-size: 18px;
+	font-weight: bold;
+	color: #fff;
+}
+
+.headerHolder {
+	width: 100%;
+	height: 65px;
+
+	& .header {
+		background: $primaty_orange;
+		width: 100%;
+		height: 65px;
+		padding: 0 36px;
+		box-sizing: border-box;
+
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		& .userImg {
+			width: 40px;
+			height: 40px;
+			border-radius: 100%;
+			overflow: hidden;
+			& img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+		}
+	}
+}
+
+.userBlock {
+	display: flex;
+	height: 65px;
+	padding: 15px 20px;
+	box-sizing: border-box;
+	background-color: rgba(0, 0, 0, 0.04);
+
+	& img {
+		width: 40px;
+		height: 40px;
+		border-radius: 100%;
+		margin-right: 20px;
+		object-fit: cover;
+	}
+	& .userInfo {
+		display: flex;
+		flex-direction: column;
+		color: #696969;
+		font-weight: bold;
+		& .userName {
+			font-size: 18px;
+			line-height: 22px;
+		}
+		& .userRole {
+			font-size: 14px;
+			line-height: 17px;
+		}
+	}
+}
