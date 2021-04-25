@@ -13,6 +13,7 @@ class ApplicationSerializer(serializers.ModelSerializer):
 
 
 class ResourcesSerializer(serializers.ModelSerializer):
+    estimation = serializers.FloatField(read_only=True)
 
     class Meta:
         model = Resource
