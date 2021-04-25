@@ -16,6 +16,8 @@ import useSetToken from "./src/hooks/useSetToken";
 import { Resource as IResource } from "./src/types";
 import { Snackbar } from "react-native-paper";
 import { setSnackBar } from "./src/reducers/app";
+import useOnPushOpen from "./src/hooks/useOnPushOpen";
+import useForegroundPush from "./src/hooks/useForegroundPush";
 
 export type RootStackParamList = {
     LogIn: undefined;
@@ -52,18 +54,22 @@ const ResourcesStack: FC = () => (
     </ResourceStack.Navigator>
 );
 
-const ApplicationsStack: FC = () => (
-    <ApplicationStack.Navigator
-        initialRouteName="ApplicationHistory"
-        screenOptions={{
-            headerShown: false,
-        }}>
-        <ApplicationStack.Screen
-            name="ApplicationHistory"
-            component={ApplicationHistory}
-        />
-    </ApplicationStack.Navigator>
-);
+const ApplicationsStack: FC = () => {
+    useOnPushOpen();
+    useForegroundPush();
+    return (
+        <ApplicationStack.Navigator
+            initialRouteName="ApplicationHistory"
+            screenOptions={{
+                headerShown: false,
+            }}>
+            <ApplicationStack.Screen
+                name="ApplicationHistory"
+                component={ApplicationHistory}
+            />
+        </ApplicationStack.Navigator>
+    );
+};
 
 const Home: FC = () => {
     return (
@@ -119,6 +125,10 @@ const Router: FC = () => {
             <Snackbar
                 visible={!!snackBar}
                 duration={3000}
+                action={{
+                    label: "Закрыть",
+                    onPress: () => dispatch(setSnackBar("")),
+                }}
                 onDismiss={() => dispatch(setSnackBar(""))}>
                 {snackBar}
             </Snackbar>

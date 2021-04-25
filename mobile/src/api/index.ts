@@ -58,3 +58,6 @@ export const getResources = () =>
 
 export const getParkingPlaces = () =>
     get("core/parking-places/").then(r => r as ParkingPlace[]);
+
+export const sendFCMToken = (token: string) =>
+    post("core/device/fcm/", { registration_id: token });

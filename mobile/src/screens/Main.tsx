@@ -17,7 +17,6 @@ const ApplicationHistory: FC = () => {
         loadApplications();
     });
     const loadApplications = useCallback(() => {
-        console.log("LOADING");
         getApplications()
             .then(i => {
                 dispatch(setApplications(i));

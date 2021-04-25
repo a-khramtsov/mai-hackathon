@@ -5,6 +5,7 @@ import {
     getParkingPlaces,
     getResources,
     getUser,
+    sendFCMToken,
     setToken,
 } from "../api";
 import { RootState } from "../reducers";
@@ -13,6 +14,7 @@ import {
     setResources,
     setParkingPlaces,
 } from "../reducers/app";
+import messaging from "@react-native-firebase/messaging";
 import { setUserId } from "../reducers/user";
 
 export default () => {
@@ -61,6 +63,26 @@ export default () => {
         loadResources();
         loadApplications();
         loadParkingPlaces();
+        messaging()
+            .getToken()
+            .then(i => {
+                console.log(i);
+                sendFCMToken(i)
+                    .then(console.log)
+                    .catch(() => {
+                        return;
+                    });
+            })
+            .catch(() => {
+                return;
+            });
+
+        messaging()
+            .requestPermission()
+            .catch(() => {
+                return;
+            });
+
         getUser()
             .then(id => dispatch(setUserId(id)))
             .catch(e =>
@@ -69,5 +91,6 @@ export default () => {
                     JSON.stringify(e.response, null, 2),
                 ),
             );
+        return messaging().onTokenRefresh(sendFCMToken);
     }, [access, dispatch]);
 };

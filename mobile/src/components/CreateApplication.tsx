@@ -2,10 +2,10 @@ import React, { FC, useCallback, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Card, Paragraph, Button, TextInput } from "react-native-paper";
 import dayjs from "dayjs";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Picker } from "@react-native-picker/picker";
 import { useSelector } from "react-redux";
 import { RootState } from "../reducers";
+import { TimePickerModal } from "react-native-paper-dates";
 
 interface IProps {
     start?: Date;
@@ -13,8 +13,10 @@ interface IProps {
     setStart: (start: Date) => void;
     setEnd: (end: Date) => void;
     onSubmit: () => void;
-    parkingSpace: string;
-    setParkingSpace: (space: string) => void;
+    parkingSpace: number;
+    setParkingSpace: (space: number) => void;
+    loading: boolean;
+    disabled: boolean;
 }
 
 const CreateApplication: FC<IProps> = ({
@@ -25,6 +27,8 @@ const CreateApplication: FC<IProps> = ({
     onSubmit,
     parkingSpace,
     setParkingSpace,
+    loading,
+    disabled,
 }) => {
     const [mode, setMode] = useState<"start" | "end">("start");
     const [visible, setVisible] = useState(false);
@@ -35,17 +39,29 @@ const CreateApplication: FC<IProps> = ({
         setVisible(true);
     }, []);
 
-    const onConfirm = useCallback(
-        (date: Date) => {
-            if (mode === "start") {
-                setStart(date);
-            } else {
-                setEnd(date);
+    const onConfirm = ({
+        hours,
+        minutes,
+    }: {
+        hours: number;
+        minutes: number;
+    }) => {
+        if (mode === "start") {
+            setStart(
+                dayjs()
+                    .hour(hours > dayjs().hour() ? hours : hours + 24)
+                    .minute(minutes)
+                    .toDate(),
+            );
+        } else {
+            let date = dayjs().hour(hours).minute(minutes);
+            if (date.isBefore(dayjs(start))) {
+                date = date.add(1, "day");
             }
-            setVisible(false);
-        },
-        [mode, setEnd, setStart],
-    );
+            setEnd(date.toDate());
+        }
+        setVisible(false);
+    };
 
     return (
         <Card style={styles.card}>
@@ -73,13 +89,14 @@ const CreateApplication: FC<IProps> = ({
                     Выбрать время конца
                 </Button>
             )}
-            <DateTimePickerModal
-                mode="datetime"
-                onCancel={() => setVisible(false)}
-                isVisible={visible}
+            <TimePickerModal
+                visible={visible}
+                onDismiss={() => setVisible(false)}
                 onConfirm={onConfirm}
-                minimumDate={new Date()}
-                date={mode === "start" ? start : end}
+                cancelLabel="Отмена" // optional, default: 'Cancel'
+                confirmLabel="ОК" // optional, default: 'Ok'
+                animationType="fade" // optional, default is 'none'
+                locale={"ru"} // optional, default is automically detected by your system
             />
             <Picker
                 selectedValue={parkingSpace}
@@ -88,16 +105,9 @@ const CreateApplication: FC<IProps> = ({
                     <Picker.Item label={i.code} value={i.id} key={i.id} />
                 ))}
             </Picker>
-
-            {/* <TextInput
-                style={styles.input}
-                keyboardType="number-pad"
-                value={parkingSpace}
-                onChangeText={setParkingSpace}
-                label="Место"
-                mode="outlined"
-            /> */}
-            <Button onPress={onSubmit}>Создать заявку</Button>
+            <Button onPress={onSubmit} loading={loading} disabled={disabled}>
+                Создать заявку
+            </Button>
         </Card>
     );
 };
@@ -111,5 +121,4 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         marginBottom: 8,
     },
-    input: { width: "40%", alignSelf: "center", height: 40 },
 });
