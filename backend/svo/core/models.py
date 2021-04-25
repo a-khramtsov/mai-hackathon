@@ -71,8 +71,8 @@ class Resource(models.Model):
 
     @property
     def estimation(self):
-        self.user_applications: models.QuerySet
-        return self.user_applications.aggregate(estimation=Avg('resource_estimation')).get('estimation', 5)
+        self.resource_applications: models.QuerySet
+        return self.resource_applications.aggregate(estimation=Avg('resource_estimation')).get('estimation', 5)
 
 
 class ParkingPlace(models.Model):
