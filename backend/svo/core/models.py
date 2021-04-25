@@ -146,7 +146,7 @@ class ExternalTask(models.Model):
 
 @receiver(post_save, sender=Application)
 def save_application_to_task(sender: Application, **kwargs):
-    if sender.status == Application.ApplicationStatuses.APPROVED_BY_DISPATCHER:
+    if sender.status == 5:
         res = ExternalTask()
         res.resource_title = sender.resource.title
         res.resource_description = sender.resource.description
