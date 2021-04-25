@@ -36,6 +36,7 @@ class ApplicationViewSet(mixins.ListModelMixin,
         application.save()
         return Response(status=204)
 
+
 class ResourceListAPI(generics.ListAPIView):
 
     queryset = Resource.objects.all()
