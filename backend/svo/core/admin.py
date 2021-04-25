@@ -17,6 +17,15 @@ class ResourceAdmin(admin.ModelAdmin):
         'resource_estimation'
     )
 
+    sortable_by = (
+        'pk',
+        'title',
+        'photo',
+        'applications_count',
+        'approved_applications_count',
+        'resource_estimation'
+    )
+
     def get_queryset(self, request):
         return super().get_queryset(request).annotate(
             applications_count=Count('resource_applications'),
