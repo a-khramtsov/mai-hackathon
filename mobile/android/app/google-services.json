@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "739616924342",
+    "project_id": "svo-hakaton",
+    "storage_bucket": "svo-hakaton.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:739616924342:android:5b62964f320bb068ff3c17",
+        "android_client_info": {
+          "package_name": "com.svo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "739616924342-0a047eonvnvebfijn11vrnsncpncctpk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwexOfcahpWcf8JGtVtDjC9IleQfHMjtk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "739616924342-0a047eonvnvebfijn11vrnsncpncctpk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

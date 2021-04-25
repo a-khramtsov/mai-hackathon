@@ -1,0 +1,12 @@
+{
+  "name": "SVO",
+  "displayName": "SVO",
+  "expo": {
+    "name": "SVO",
+    "slug": "SVO",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
