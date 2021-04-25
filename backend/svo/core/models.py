@@ -136,7 +136,7 @@ class ExternalTask(models.Model):
     resource_geo_lon = models.FloatField(null=True, blank=True)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
-    airline = models.CharField()
+    airline = models.TextField()
     user_email = models.TextField(null=True, blank=True)
     user_username = models.TextField(null=True, blank=True)
     user_first_name = models.TextField(null=True, blank=True)
