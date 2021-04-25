@@ -16,7 +16,7 @@ class ResourceAdmin(admin.ModelAdmin):
     )
 
     def get_queryset(self, request):
-        return super().get_queryset().annotate(applications_count=Count('resource_applications'))
+        return super().get_queryset(request).annotate(applications_count=Count('resource_applications'))
 
     def applications_count(self, obj):
         return obj.applications_count
