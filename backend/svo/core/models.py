@@ -11,12 +11,15 @@ class Airline(models.Model):
     )
     logo = models.ImageField(upload_to='airline_logos/', null=True, blank=True)
 
+    def __str__(self):
+        return self.name
+
 
 class UserManager(BaseUserManager):
     def get_queryset(self):
-        return super().get_queryset()\
+        return super().get_queryset() \
             .annotate(estimation=Avg('user_applications__worker_estimation',
-                                                              output_field=models.FloatField()))
+                                     output_field=models.FloatField()))
 
 
 class User(AbstractUser):
@@ -35,6 +38,10 @@ class User(AbstractUser):
 
     objects = UserManager()
 
+    def __str__(self):
+        return self.email + (
+            (' ' + self.first_name + ' ' + self.last_name) if self.first_name and self.last_name else '')
+
 
 class Resource(models.Model):
     title = models.TextField()
@@ -42,6 +49,9 @@ class Resource(models.Model):
     photo = models.ImageField()
     geo_lat = models.FloatField()
     geo_lon = models.FloatField()
+
+    def __str__(self):
+        return self.title
 
 
 class ParkingPlace(models.Model):
@@ -59,7 +69,7 @@ class Application(models.Model):
         NEW = 1, 'NEW'
         APPROVED_BY_AIRLINE = 2, 'APPROVED_BY_AIRLINE'
         REFUSED_BY_AIRLINE = 3, 'REFUSED_BY_AIRLINE'
-        EDITED_BY_AIRLINE = 4,  'EDITED_BY_AIRLINE'
+        EDITED_BY_AIRLINE = 4, 'EDITED_BY_AIRLINE'
         APPROVED_BY_DISPATCHER = 5, 'APPROVED_BY_DISPATCHER'
         REFUSED_BY_DISPATCHER = 6, 'REFUSED_BY_DISPATCHER'
         EDITED_BY_DISPATCHER = 7, 'EDITED_BY_DISPATCHER'
@@ -99,4 +109,3 @@ class Application(models.Model):
         else:
             self.status = Application.ApplicationStatuses.APPROVED_BY_WORKER_BUT_NOT_BY_AIRLINE
             self.save()
-
