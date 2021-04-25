@@ -1,6 +1,6 @@
 
 
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import './App.scss'
 import { Route } from "react-router-dom"
 import { Switch, useHistory } from 'react-router'
@@ -19,6 +19,7 @@ const App = () => {
 	const history = useHistory()
 	useAuth()
 	const logged = useAppSelector(state => state.me.logged)
+	const me = useAppSelector(state => state.me.userInfo)
 
 	useEffect(() => {
 		console.log(history.location.pathname)
@@ -27,6 +28,22 @@ const App = () => {
 			history.push("/applications")
 		}
 	}, [history, logged])
+
+	const [needRefresh1, setNeedRefresh1] = useState(false)
+	const [needRefresh2, setNeedRefresh2] = useState(false)
+	useEffect(() => {
+		if (me.id) {
+			const WSclient = new WebSocket(`ws://api.svo.lapotnikov.ru/ws/airline/${me.airline.id}/`);
+
+			WSclient.onopen = () => {
+				console.log('open')
+			};
+			WSclient.onmessage = (message) => {
+				setNeedRefresh1(true)
+				setNeedRefresh2(true)
+			}
+		}
+	}, [me])
 
 	if (!logged) {
 		return <Login />
@@ -40,8 +57,8 @@ const App = () => {
 			<div className="app-content">
 				<Switch>
 
-					<Route exact={is768} path="/applications" component={Projects} />
-					{is768 && <Route exact path="/applications/:id" component={Project} />}
+					<Route exact={is768} path="/applications" component={() => <Projects needRefresh={needRefresh1} setNeedRefresh={setNeedRefresh1} />} />
+					{is768 && <Route exact path="/applications/:id" component={() => <Project needRefresh={needRefresh2} setNeedRefresh={setNeedRefresh2} />} />}
 
 
 					<Route component={() => <div>Страница не найдена</div>} />

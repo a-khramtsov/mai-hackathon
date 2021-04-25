@@ -40,17 +40,16 @@ const ApplicationsList: FC<PropsTypes> = ({ applications, approve, refuse, ...pr
 
 					<div className={s.flex} style={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}>
 						<img className={s.previewImg} src={application.resource.photo} />
-						<div className={s.projectInfo}>
+						<div className={s.projectInfo} style={{ width: '100%' }}>
 
-							<div className={s.flex} style={{ marginBottom: 10 }}>
+							<div className={s.flex} style={{ marginBottom: 10, width: '100%' }}>
 								<div className={s.projectName}>{application.resource.title}</div>
 								{canApproveOrRefuse(application.status) &&
 									<div className={s.flex}>
-										<button className={s.button} onClick={() => approve(application.id)}>
+										<button className={s.button} onClick={(e: any) => { approve(application.id); e.preventDefault() }}>
 											<FontAwesomeIcon icon={faCheck} />
 										</button>
-
-										<button className={s.button} onClick={() => refuse(application.id)}>
+										<button className={s.button} onClick={(e: any) => { refuse(application.id); e.stopPropagation() }}>
 											<FontAwesomeIcon icon={faTimes} />
 										</button>
 									</div>}

@@ -21,7 +21,7 @@ const Header = (props: any) => {
 	return (
 		<div className={s.headerHolder}>
 			<div className={s.header}>
-				<Link to='/applications' className={s.title}>AIRLINE APPLICATION</Link>
+				<Link to='/applications' className={s.title}>DISPATCHER APPLICATION</Link>
 				<button className={s.userImg} onClick={handleClick}><img src={me.avatar} alt="user-img" /></button>
 			</div>
 
