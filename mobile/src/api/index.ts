@@ -61,3 +61,17 @@ export const getParkingPlaces = () =>
 
 export const sendFCMToken = (token: string) =>
     post("core/device/fcm/", { registration_id: token });
+
+export const rateApplication = ({
+    resource,
+    service,
+    id,
+}: {
+    resource?: number;
+    service?: number;
+    id: number;
+}) =>
+    post(`worker/applications/${id}/estimate/`, {
+        resource_estimation: resource,
+        service_estimation: service,
+    });
