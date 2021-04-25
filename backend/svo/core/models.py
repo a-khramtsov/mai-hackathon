@@ -45,7 +45,7 @@ class User(AbstractUser):
     @property
     def estimation(self):
         self.user_applications: models.QuerySet
-        return self.user_applications.aggregate(Avg('worker_estimation'))
+        return self.user_applications.aggregate(estimation=Avg('worker_estimation')).get('estimation', 5)
 
     def __str__(self):
         return self.email + (
