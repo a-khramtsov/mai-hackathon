@@ -63,8 +63,8 @@ class Resource(models.Model):
     title = models.TextField()
     description = models.TextField()
     photo = models.ImageField()
-    geo_lat = models.FloatField()
-    geo_lon = models.FloatField()
+    geo_lat = models.FloatField(default=55.966324)
+    geo_lon = models.FloatField(default=37.416573)
 
     def __str__(self):
         return self.title
