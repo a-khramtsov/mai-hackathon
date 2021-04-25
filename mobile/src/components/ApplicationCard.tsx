@@ -1,9 +1,9 @@
 import React, { useState, FC, useEffect, useMemo, useCallback } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Card, Title, Subheading, Paragraph, Colors } from "react-native-paper";
-import { Rating } from "react-native-ratings";
 import dayjs from "dayjs";
 
+import Rating from "../components/Rating";
 import { Application, Status } from "../types";
 import { formatStatus } from "../util";
 import { useSelector } from "react-redux";
@@ -31,6 +31,8 @@ const ApplicationCard: FC<IProps> = ({
         () => resources.find(({ id }) => id === resource),
         [resource, resources],
     );
+    const [resourceLock, setResourceLock] = useState(resource_estimation || 0);
+    const [serviceLock, setServiceLock] = useState(service_estimation || 0);
     const style = useMemo(() => {
         switch (status) {
             case Status.APPROVED_BY_AIRLINE:
@@ -47,7 +49,10 @@ const ApplicationCard: FC<IProps> = ({
     const onResourceRate = useCallback(
         (rating: number) => {
             rateApplication({ id, resource: rating })
-                .then(r => console.log("DONE"))
+                .then(r => {
+                    console.log("DONE");
+                    setResourceLock(rating);
+                })
                 .catch(e => console.log(JSON.stringify(e.response)));
         },
         [id],
@@ -55,7 +60,10 @@ const ApplicationCard: FC<IProps> = ({
     const onServiceRate = useCallback(
         (rating: number) => {
             rateApplication({ id, service: rating })
-                .then(r => console.log("DONE"))
+                .then(r => {
+                    console.log("DONE");
+                    setServiceLock(rating);
+                })
                 .catch(e => console.log(JSON.stringify(e.response)));
         },
         [id],
@@ -75,19 +83,21 @@ const ApplicationCard: FC<IProps> = ({
             <Paragraph>Ресурс: {currentResource.title}</Paragraph>
             <Paragraph>Место №{parking_place}</Paragraph>
             <Paragraph>Оценить ресурс: </Paragraph>
-            <Rating
+            <Rating rating={resourceLock} onPress={onResourceRate} />
+            {/* <Rating
                 imageSize={30}
                 startingValue={resource_estimation || 0}
-                readonly={!!resource_estimation}
+                readonly={resourceLock}
                 onFinishRating={onResourceRate}
-            />
+            /> */}
             <Paragraph>Оценить сервис: </Paragraph>
-            <Rating
+            <Rating rating={serviceLock} onPress={onServiceRate} />
+            {/* <Rating
                 imageSize={30}
                 startingValue={service_estimation || 0}
-                readonly={!!service_estimation}
+                readonly={serviceLock}
                 onFinishRating={onServiceRate}
-            />
+            /> */}
         </Card>
     );
 };
