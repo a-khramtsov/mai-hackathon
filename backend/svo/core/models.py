@@ -16,6 +16,8 @@ class Airline(models.Model):
 
 
 class UserManager(BaseUserManager):
+    use_for_related_fields = True
+
     def get_queryset(self):
         return super().get_queryset() \
             .annotate(estimation=Avg('user_applications__worker_estimation',
