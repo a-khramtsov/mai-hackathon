@@ -27,7 +27,7 @@ class ApplicationViewSet(mixins.ListModelMixin,
                                  'resource_estimation': openapi.Schema(type=openapi.TYPE_INTEGER),
                                  'service_estimation': openapi.Schema(type=openapi.TYPE_INTEGER)
                              },
-                         ), operation_description="POST /api/dispatcher/applications/{id}/estimate/")
+                         ), operation_description="POST /api/worker/applications/{id}/estimate/")
     @action(methods=["POST"], detail=True)
     def estimate(self, *args, **kwargs):
         application = self.get_object()
