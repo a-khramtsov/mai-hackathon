@@ -13,6 +13,7 @@ class ResourceAdmin(admin.ModelAdmin):
         'title',
         'photo',
         'applications_count',
+        'approved_applications_count',
         'resource_estimation'
     )
 
@@ -26,8 +27,10 @@ class ResourceAdmin(admin.ModelAdmin):
     def applications_count(self, obj):
         return obj.applications_count
 
-
     def resource_estimation(self, obj):
+        return obj.resource_estimation
+
+    def approved_applications_count(self, obj):
         return obj.resource_estimation
 
 
