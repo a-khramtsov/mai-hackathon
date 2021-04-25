@@ -30,7 +30,9 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     'api.svo.lapotnikov.ru',
-    'svo.lapotnikov.ru'
+    'svo.lapotnikov.ru',
+    'airline.svo.lapotnikov.ru',
+    'dispatcher.svo.lapotnikov.ru'
 ]
 
 # Application definition
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'drf_yasg',
+    "push_notifications",
 
     'core',
     'airline',
@@ -120,6 +123,10 @@ REST_FRAMEWORK = {
     ),
 }
 
+PUSH_NOTIFICATIONS_SETTINGS = {
+    "FCM_API_KEY": "AAAArDSaorY:APA91bE_bZjxYs0rOg17Jqe59a-ZDEWtelWq7U7AP2MKlNlTObGVmGlQMRy7Sg7rlDm5Y3FIBdVdMeoyUKcRw7IBQSz3MP30tl3x7B64FoTQYRoC8o_X-34rxxXhnsTHugFOZBoi6pD3"
+}
+
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=2),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=5),
@@ -140,6 +147,12 @@ USE_L10N = True
 
 USE_TZ = True
 
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/

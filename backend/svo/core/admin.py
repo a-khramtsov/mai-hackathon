@@ -1,10 +1,28 @@
 from django.contrib import admin
+from django.db.models import Count
 
 from . import models
 
 # Register your models here.
 admin.site.register(models.User)
-admin.site.register(models.Resource)
+
+
+class ResourceAdmin(admin.ModelAdmin):
+    list_display = (
+        'pk',
+        'title',
+        'photo',
+        'applications_count'
+    )
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).annotate(applications_count=Count('resource_applications'))
+
+    def applications_count(self, obj):
+        return obj.applications_count
+
+
+admin.site.register(models.Resource, ResourceAdmin)
 
 admin.site.register(models.Airline)
 admin.site.register(models.ParkingPlace)
