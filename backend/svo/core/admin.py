@@ -15,7 +15,7 @@ class ExternalTaskAdmin(admin.ModelAdmin):
         'resource_title',
         'resource_description',
         'resource_geo_lat',
-        'resource_geo_lon ',
+        'resource_geo_lon',
         'start_time',
         'end_time',
         'airline',
