@@ -26,6 +26,8 @@ class ParkingPlaceSerializer(serializers.ModelSerializer):
 
 
 class CoreResourceSerializer(serializers.ModelSerializer):
+    estimation = serializers.FloatField(read_only=True)
+
     class Meta:
         model = models.Resource
         fields = '__all__'
