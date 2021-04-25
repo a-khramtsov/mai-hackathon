@@ -10,6 +10,7 @@ from core.models import Application
 from core.serializers import CoreApplicationSerializer
 from .serializers import EstimateSerializer
 
+
 class ApplicationViewSet(viewsets.ModelViewSet):
     pagination_class = None
     queryset = Application.objects.all()
