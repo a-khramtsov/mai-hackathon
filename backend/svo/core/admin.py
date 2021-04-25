@@ -12,7 +12,8 @@ class ResourceAdmin(admin.ModelAdmin):
         'pk',
         'title',
         'photo',
-        'applications_count'
+        'applications_count',
+        'resource_estimation'
     )
 
     def get_queryset(self, request):
