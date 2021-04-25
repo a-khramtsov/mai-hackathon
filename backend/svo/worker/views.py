@@ -17,6 +17,9 @@ class ApplicationViewSet(mixins.ListModelMixin,
     serializer_class = serializers.ApplicationSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
+
     @swagger_auto_schema(method="post", request_body=openapi.Schema(
                              type=openapi.TYPE_OBJECT,
                              required=['estimation'],
