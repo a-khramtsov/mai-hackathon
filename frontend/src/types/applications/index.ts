@@ -20,6 +20,8 @@ export type ApplicationType = {
 	}
 	user: MeType
 	worker_estimation: number
+	service_estimation: number
+	resource_estimation: number
 }
 
 export enum ApplicationFiltersEnum {

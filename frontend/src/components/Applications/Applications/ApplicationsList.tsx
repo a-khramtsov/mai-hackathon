@@ -59,7 +59,8 @@ const ApplicationsList: FC<PropsTypes> = ({ applications, approve, refuse, ...pr
 								<img src={locationIcon} alt="location-icon" />
 								<p>Parking place: {application.parking_place.code}</p>
 							</div>
-							<p className={s.date}>Status:&nbsp;<span className={getStatusColor(application.status)}>{ApplicationFiltersEnum[application.status]}</span></p>
+							<p className={s.date}>Status:&nbsp;<span className={getStatusColor(application.status)}>{ApplicationFiltersEnum[application.status]}</span>
+							</p>
 							<p className={s.date}>Start date: {moment(application.start_time).format('DD.MM.DD HH:mm')}</p>
 							<p className={s.date}>End date: {moment(application.end_time).format('DD.MM.DD HH:mm')}</p>
 
@@ -67,8 +68,9 @@ const ApplicationsList: FC<PropsTypes> = ({ applications, approve, refuse, ...pr
 						</div>
 					</div>
 				</Link>
-			)}
-		</div>
+			)
+			}
+		</div >
 	)
 }
 

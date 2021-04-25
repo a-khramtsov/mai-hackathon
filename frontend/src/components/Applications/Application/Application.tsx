@@ -47,7 +47,8 @@ const Application = ({ application, approve, refuse, setNeedRefresh, ...props }:
 		return null
 	}
 
-	const estimation = application.worker_estimation
+	const serviceRating = application.service_estimation
+	const resourseRating = application.resource_estimation
 
 
 	return (
@@ -74,23 +75,23 @@ const Application = ({ application, approve, refuse, setNeedRefresh, ...props }:
 				</div>
 
 
-				{estimation ?
-					<div>
-						<p className={s.projectName}>Estimation: {estimation}</p>
-						<div className={s.stars}>
-							{Array.from({ length: +estimation.toFixed() }).map((star, counter) => <FontAwesomeIcon icon={faStar} key={counter} />)}
-							{Array.from({ length: 5 - +estimation.toFixed() }).map((star, counter) => <FontAwesomeIcon icon={faStarEmpty} key={counter} />)}
-							{estimation ? <h4 className={s.projectName}>{estimation.toFixed(1)}</h4> : null}
-						</div>
+				{serviceRating && <div>
+					<p className={s.projectName}>Service Quality:</p>
+					<div className={s.stars}>
+						{Array.from({ length: +serviceRating.toFixed() }).map((star, counter) => <FontAwesomeIcon icon={faStar} key={counter} />)}
+						{Array.from({ length: 5 - +serviceRating.toFixed() }).map((star, counter) => <FontAwesomeIcon icon={faStarEmpty} key={counter} />)}
+						{serviceRating ? <h4 className={s.projectName}>{serviceRating.toFixed(1)}</h4> : null}
+					</div>
+				</div>}
 
-					</div> :
-					<div>
-						<p className={s.projectName}>Set estimation</p>
-						<EstimationForm
-							setEstimation={setEstimation}
-							application={application}
-						/>
-					</div>}
+				{resourseRating && <div>
+					<p className={s.projectName}>Resource Quality:</p>
+					<div className={s.stars}>
+						{Array.from({ length: +resourseRating.toFixed() }).map((star, counter) => <FontAwesomeIcon icon={faStar} key={counter} />)}
+						{Array.from({ length: 5 - +resourseRating.toFixed() }).map((star, counter) => <FontAwesomeIcon icon={faStarEmpty} key={counter} />)}
+						{resourseRating ? <h4 className={s.projectName}>{resourseRating.toFixed(1)}</h4> : null}
+					</div>
+				</div>}
 
 
 			</div>
