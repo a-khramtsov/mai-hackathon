@@ -67,8 +67,8 @@ class Resource(models.Model):
 
 class ParkingPlace(models.Model):
     code = models.CharField(max_length=100, unique=True)
-    geo_lat = models.IntegerField()
-    geo_lon = models.IntegerField()
+    geo_lat = models.FloatField()
+    geo_lon = models.FloatField()
 
     def __str__(self):
         return self.code
@@ -123,3 +123,4 @@ class Application(models.Model):
 
     def __str__(self):
         return f"Application#{self.pk} from {str(self.user)} for {str(self.resource)}"
+
