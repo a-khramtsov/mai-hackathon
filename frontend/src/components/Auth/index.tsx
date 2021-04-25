@@ -18,12 +18,12 @@ const Login: FC = () => {
 	const dispatch = useAppDispatch()
 
 	const validationSchema = yup.object({
-		email: yup.string().email("Некорректный Email").required('Обязательное поле'),
+		email: yup.string().email("Incorrect Email").required('Required field'),
 		password: yup
 			.string()
-			.min(8, 'Минимальная длина 8 символов')
-			.max(32, 'Максимальная длина 32 символа')
-			.required('Обязательное поле'),
+			.min(8, 'Minial length is 8 symbols')
+			.max(32, 'Maxiamal length is 32 symbols')
+			.required('Required field'),
 	})
 
 	const [err, setError] = useState('')
@@ -36,7 +36,7 @@ const Login: FC = () => {
 
 		const response = await dispatch(login(dataObj))
 		if (!response.type.endsWith('fulfilled')) {
-			setError('Неверный логин или пароль')
+			setError('Incorrect login or password')
 		}
 
 		setSubmitting(false)
@@ -56,7 +56,7 @@ const Login: FC = () => {
 				{({ errors, isSubmitting }) => (
 					<Form className={styles.form}>
 
-						<h2 className={styles.title}>Вход</h2>
+						<h2 className={styles.title}>Login</h2>
 						<FormikInput
 							placeholder='Email'
 							name='email'
@@ -64,14 +64,14 @@ const Login: FC = () => {
 						/>
 
 						<FormikInput
-							placeholder='Пароль'
+							placeholder='Passowrd'
 							name='password'
 							type='password'
 							Component={LoginInput}
 						/>
 
 						<button className={styles.button} disabled={isSubmitting}>
-							Войти
+							Login
 						</button>
 
 						<StyledErrorMessage>{err}</StyledErrorMessage>

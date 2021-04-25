@@ -15,7 +15,7 @@ import Project from './components/Applications/Application/ApplicationContainer'
 
 
 const App = () => {
-	const is480 = useResolution(480)
+	const is768 = useResolution(768)
 	const history = useHistory()
 	useAuth()
 	const logged = useAppSelector(state => state.me.logged)
@@ -40,8 +40,8 @@ const App = () => {
 			<div className="app-content">
 				<Switch>
 
-					<Route path="/applications" component={Projects} />
-					{is480 && <Route exact path="/applications/:id" component={Project} />}
+					<Route exact={is768} path="/applications" component={Projects} />
+					{is768 && <Route exact path="/applications/:id" component={Project} />}
 
 
 					<Route component={() => <div>Страница не найдена</div>} />

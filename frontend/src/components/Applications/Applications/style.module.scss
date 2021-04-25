@@ -13,7 +13,6 @@
 		& .projectsListElement {
 			padding: 10px;
 			display: grid;
-			grid-template-columns: 1fr 2fr;
 			grid-gap: 10px;
 
 			&:hover {
@@ -30,7 +29,7 @@
 				flex-direction: column;
 
 				& .projectName {
-					font-size: 14px;
+					font-size: 15px;
 					line-height: 120%;
 					color: #000000;
 					font-weight: bold;
@@ -69,16 +68,48 @@
 							color: #a6acbe;
 						}
 					}
-
-					& .date {
-						font-size: 10px;
-						line-height: 12px;
-						display: flex;
-						align-items: center;
-						color: #a6acbe;
-					}
 				}
 			}
 		}
 	}
+}
+.date {
+	font-size: 13px;
+	display: flex;
+	font-weight: 700;
+	margin-top: 4px;
+	align-items: center;
+	color: #a6acbe;
+}
+
+.flex {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.button {
+	margin-left: 6px;
+	background: #fafafa;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	border-radius: 4px;
+}
+
+.emptyList {
+	margin: 10px auto;
+	text-align: center;
+	font-size: 13px;
+	font-weight: 700;
+}
+
+.previewImg {
+	width: 100%;
+	max-width: 100px;
+	max-height: 100px;
+	margin-right: 16px;
+	object-fit: cover;
 }

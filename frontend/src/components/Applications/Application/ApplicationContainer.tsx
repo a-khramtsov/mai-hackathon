@@ -10,27 +10,59 @@ interface RouteParams {
 	id: string
 }
 
-const ProjectContainer = () => {
+type PropsType = {
+	needRefresh?: boolean
+	setNeedRefresh?: (needRefresh: boolean) => void
+}
+
+const ProjectContainer = ({ needRefresh, setNeedRefresh }: PropsType) => {
 	const { id } = useParams<RouteParams>()
 	const [application, setApplication] = useState<ApplicationType>({} as ApplicationType)
 	const [loading, setLoading] = useState(false)
 
 	useEffect(() => {
-		(async () => {
-			setLoading(true)
-			const response = await applicationsAPI.getApplication(+id)
-			if (response.status === 200) {
-				setApplication(response.data)
-			}
-			setLoading(false)
-		})()
+		getApplication()
 	}, [id]);
 
+	const getApplication = async () => {
+		setLoading(true)
+		const response = await applicationsAPI.getApplication(+id)
+		if (response.status === 200) {
+			setApplication(response.data)
+		}
+		setLoading(false)
+	}
+
+	useEffect(() => {
+		if (needRefresh && setNeedRefresh) {
+			getApplication()
+			setNeedRefresh(false)
+		}
+	}, [needRefresh])
+
+
+	const approve = async () => {
+		const response = await applicationsAPI.approveApplication(application.id)
+		if (response.status > 200 && response.status < 300) {
+			if (setNeedRefresh) {
+				setNeedRefresh(true)
+			}
+		}
+	}
+
+	const refuse = async () => {
+		const response = await applicationsAPI.refuseApplication(application.id)
+		if (response.status > 200 && response.status < 300) {
+			if (setNeedRefresh) {
+				setNeedRefresh(true)
+			}
+		}
+	}
 
 
 	return (
 		<Block style={{ padding: 20 }} fullHeight={true}>
-			{/* <Application application={application} /> */}
+			<Application application={application} approve={approve} refuse={refuse} />
 		</Block>
 
 	)

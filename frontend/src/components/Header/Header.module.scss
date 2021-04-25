@@ -5,11 +5,10 @@
 	height: 65px;
 
 	& .header {
-		// position: fixed;
 		background: $primaty_orange;
 		width: 100%;
 		height: 65px;
-		
+
 		display: flex;
 		justify-content: flex-end;
 		align-items: center;
@@ -19,6 +18,12 @@
 			width: 40px;
 			height: 40px;
 			border-radius: 100%;
+			overflow: hidden;
+			& img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
 		}
 	}
 }
@@ -35,6 +40,7 @@
 		height: 40px;
 		border-radius: 100%;
 		margin-right: 20px;
+		object-fit: cover;
 	}
 	& .userInfo {
 		display: flex;
@@ -44,7 +50,6 @@
 		& .userName {
 			font-size: 18px;
 			line-height: 22px;
-			
 		}
 		& .userRole {
 			font-size: 14px;

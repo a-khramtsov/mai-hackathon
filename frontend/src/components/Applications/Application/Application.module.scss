@@ -37,12 +37,12 @@
 						color: #007eff;
 						font-weight: 600;
 						font-family: 'Proxima Nova Lt';
-						font-size: 14px;
+						font-size: 16px;
 						line-height: 120%;
 					}
 
 					& .placeCategory {
-						font-size: 13px;
+						font-size: 16px;
 						line-height: 16px;
 						color: #696969;
 						opacity: 0.6;
@@ -52,7 +52,7 @@
 		}
 
 		& .projectName {
-			margin: 16px 0 10px 0;
+			margin: 10px 0 10px 0;
 			font-size: 16px;
 			line-height: 120%;
 			font-weight: bold;
@@ -120,4 +120,10 @@
 			line-height: 17px;
 		}
 	}
+}
+
+.flex {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }

@@ -1,11 +1,24 @@
+import { MeType } from "types/me";
+
 export type ApplicationType = {
 	id: number
 	description: string
 	start_time: string
 	end_time: string
 	status: ApplicationFiltersEnum
-	resource: number
-	user: number
+	resource: {
+		id: number
+		title: string,
+		description: string,
+		photo: string,
+		geo_lat: number
+		geo_lon: number
+	}
+	parking_place: {
+		id: number
+		code: string
+	}
+	user: MeType
 }
 
 export enum ApplicationFiltersEnum {
@@ -17,6 +30,7 @@ export enum ApplicationFiltersEnum {
 	APPROVED_BY_DISPATCHER = 5,
 	REFUSED_BY_DISPATCHER = 6,
 	EDITED_BY_DISPATCHER = 7,
+	APPROVED_BY_WORKER_BUT_NOT_BY_AIRLINE = 8
 }
 
 export enum FilterForRequestEnum {

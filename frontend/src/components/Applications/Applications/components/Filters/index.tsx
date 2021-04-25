@@ -12,13 +12,10 @@ type PropsTypes = {
 }
 
 const filters = [
-	{ label: 'Отмененные', value: FilterForRequestEnum.CANCELLED },
-	{ label: 'Новые', value: FilterForRequestEnum.NEW },
-	{ label: 'Одобренные', value: FilterForRequestEnum.APPROVED },
-	{ label: 'Отклоненные ', value: FilterForRequestEnum.REFUSED },
-	{ label: 'Измененные диспетчером', value: FilterForRequestEnum.EDITED },
-	{ label: 'История', value: FilterForRequestEnum.HISTORY },
-
+	{ label: 'Under consideration', value: FilterForRequestEnum.NEW },
+	{ label: 'History', value: FilterForRequestEnum.HISTORY },
+	{ label: 'Approved', value: FilterForRequestEnum.APPROVED },
+	{ label: 'Rejected ', value: FilterForRequestEnum.REFUSED },
 ]
 
 const Filters: FC<PropsTypes> = ({ filter: currentFilter, setFilter, ...props }) => {
@@ -31,7 +28,6 @@ const Filters: FC<PropsTypes> = ({ filter: currentFilter, setFilter, ...props })
 				label={filter.label}
 				value={filter.value}
 			/>)}
-
 		</div>
 
 	)

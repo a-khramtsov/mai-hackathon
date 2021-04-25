@@ -1,6 +1,6 @@
 
 
-import React, { FC } from 'react'
+import React, { useState } from 'react'
 import s from './Applications.module.scss'
 import ApplicationsListContainer from './Applications/ApplicationsListContainer'
 import ApplicationContainer from './Application/ApplicationContainer'
@@ -9,12 +9,13 @@ import { Block } from '../Common/CustomComponents/Blocks'
 
 
 const Applications = ({ ...props }) => {
+	const [needRefresh, setNeedRefresh] = useState(false)
 	return (
 		<div className={s.desktop}>
-			<ApplicationsListContainer />
+			<ApplicationsListContainer needRefresh={needRefresh} setNeedRefresh={setNeedRefresh} />
 			<Switch>
 				<Route exact path='/applications' component={() => <Block fullHeight={true} style={{ padding: 20 }}> <p>Выберите заявку</p></Block>} />
-				<Route exact path='/applications/:id' component={ApplicationContainer} />
+				<Route exact path='/applications/:id' component={() => <ApplicationContainer needRefresh={needRefresh} setNeedRefresh={setNeedRefresh} />} />
 			</Switch>
 		</div>
 	)

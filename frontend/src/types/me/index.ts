@@ -5,6 +5,13 @@ export type MeType = {
 	first_name: string,
 	last_name: string,
 	avatar: string
+	airline: AirlineType
+}
+
+type AirlineType = {
+	id: number
+	logo: string
+	name: string
 }
 
 export enum RoleEnum { }

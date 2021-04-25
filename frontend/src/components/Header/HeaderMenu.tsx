@@ -62,10 +62,10 @@ export const HeaderMenu: React.FC<HeaderMenuProps> = ({ anchorEl, handleClose, .
 				className={classes.root}
 			>
 				<div className={s.userBlock}>
-					<img src={userImg} alt="user-img" />
+					<img src={me.avatar} alt="user-img" />
 					<div className={s.userInfo}>
-						<p className={s.userName}>{me.last_name || '' + ' ' + me.first_name || ''}</p>
-						{/* <p className={s.userRole}>Администратор</p> */}
+						<p className={s.userName}>{(me.last_name || '') + ' ' + (me.first_name || '')}</p>
+						<p className={s.userRole}>Airline: {me.airline.name}</p>
 					</div>
 				</div>
 
@@ -76,7 +76,7 @@ export const HeaderMenu: React.FC<HeaderMenuProps> = ({ anchorEl, handleClose, .
 						handleClose()
 					}}>
 					<img src={logoutIcon} alt="settings-icon" />
-					Выход
+					Logiut
 				</MenuItem>
 			</Menu>
 		</div>

@@ -9,106 +9,59 @@ import { SubmitRoundedButton, DismissSimpleButton, DismissRoundedButton } from '
 import { ButtonsHolder } from '../../Common/CustomComponents/Blocks'
 import SubmissionModal from '../../Common/Modals/SubmissionModal'
 import { ApplicationType } from 'types/applications'
+import moment from 'moment'
+import { applicationsAPI } from 'api'
+import { canApproveOrRefuse } from 'components/Applications/Applications/ApplicationsList'
+import locationIcon from '../../../assets/img/location-icon.png'
 
 type PropsType = {
 	application: ApplicationType
+	approve: () => void
+	refuse: () => void
 }
 
-const Application = ({ application, ...props }: PropsType) => {
-	let listItems = ['Фaiyegqwi7ugeqwui', 'ueg qwygve uoqwv e qw', 'qwiye fqwyve ', 'qwlukeyy gqwyeb wqig e',]
-
+const Application = ({ application, approve, refuse, ...props }: PropsType) => {
 	const [modalOpen, setModalOpen] = useState(false)
 
 
+
+	if (!application.id) {
+		return null
+	}
+
 	return (
 		<div className={s.projectBlock}>
-			<div className={s.date}>6 апреля, 11:35</div>
-
 			<div className={s.previewBlock}>
-				<img src={projectImg} alt="project-img" className={s.projectImg} />
+
+				<img src={application.resource.photo} alt="project-img" className={s.projectImg} />
 
 
 				<div className={s.previewInfo}>
 					<div className={s.placeInfo}>
-						<img src={userImg} alt="user-img" />
+						<img src={application?.user?.avatar} alt="user-img" />
 						<div className={s.placeDetails}>
-							<p className={s.placeName}>BEAUTYPLACE</p>
-							<p className={s.placeCategory}>коворкинг</p>
+							<p className={s.placeName}>{(application?.user?.last_name || '') + ' ' + (application?.user?.first_name || '')}</p>
+							<p className={s.placeCategory}>{application?.user?.airline.name}</p>
 						</div>
 					</div>
-					<div className={s.projectName}>Кабинет 1 на Ленинском пр. 132</div>
-					<div className={s.price}>от 100р<span> / час</span></div>
+
+
+					<p className={s.projectName} style={{ fontSize: 16 }}>{application.resource.title}</p>
+					<p className={s.projectName}>Start date: {moment(application.start_time).format('YYYY.MM.DD HH:mm')}</p>
+					<p className={s.projectName}>Parking place: {application.parking_place.code}</p>
+					<p className={s.projectName}>End date: {moment(application.end_time).format('YYYY.MM.DD HH:mm')}</p>
 				</div>
 			</div>
 
-			<div className={s.mainInfoBlock}>
-				<div className={s.contentBlock}>
-					<h1>Страна</h1>
-					<p>Россия</p>
-				</div>
-				<div className={s.contentBlock}>
-					<h1>Формат пространства</h1>
-					<p>Салон</p>
-				</div>
-				<div className={s.contentBlock}>
-					<h1>Город</h1>
-					<p>Санкт - Петербург</p>
-				</div>
-				<div className={s.contentBlock}>
-					<h1>Вид рабочего места</h1>
-					<p>Отдельный кабинет</p>
-				</div>
-				<div className={s.contentBlock}>
-					<h1>Точный адрес</h1>
-					<p>ул. Ленинский пр. 132</p>
-				</div>
-				<div className={s.contentBlock}>
-					<h1>Тип рабочего места</h1>
-					<p>Кабинет педикюрный</p>
-				</div>
-			</div>
-
-			<div className={classNames(s.contentBlock, s.bigMargin)}>
-				<h1>Удобства</h1>
-				<div className={s.categoryContent}>
-					<h2>Основное оснащение</h2>
-					<p>{listItems.join(' • ')}</p>
-				</div>
-			</div>
-
-			<div className={classNames(s.contentBlock, s.bigMargin)}>
-				<h1>Описание</h1>
-				<p>Добрый день! Сдаю уютное рабочее место парикмахера в студии недалеко от Невского проспекта, в шаговой доступности метро. Сдаю уютное рабочее парикмахера в недалеко от Невского проспекта, в шаговой доступности метро. Сдаю место парикмахера недалеко от Невского проспекта, в шаговой доступности метро.</p>
-			</div>
-
-			<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
-
-				<div className={classNames(s.contentBlock, s.bigMargin)}>
-					<h1>Правила поведения</h1>
-					{listItems.map(elem => <p>• {elem}</p>)}
-				</div>
-				<div className={classNames(s.contentBlock, s.bigMargin)}>
-					<h1>Правила отмены</h1>
-					<p>Без возможности отмены</p>
-				</div>
-			</div>
-
-			<ButtonsHolder>
-				<DismissSimpleButton onClick={() => { setModalOpen(true) }}>Заблокировать</DismissSimpleButton>
-				<SubmitRoundedButton>Одобрить</SubmitRoundedButton>
-			</ButtonsHolder>
 
 
-			<SubmissionModal
-				open={modalOpen}
-				handleClose={() => { setModalOpen(false) }}
-				titleText={"Сообщение о причине блокировки объявления:"}
-				submitFunction={(message: string) => { console.log(message) }}
-				buttons={<ButtonsHolder>
-					<button type="button" onClick={() => { setModalOpen(false) }}>Закрыть</button>
-					<DismissRoundedButton type="submit">Заблокировать</DismissRoundedButton>
+			{ canApproveOrRefuse(application.status) &&
+				<ButtonsHolder>
+					<SubmitRoundedButton onClick={approve}>Approve</SubmitRoundedButton>
+					<DismissSimpleButton onClick={refuse}>Refuse</DismissSimpleButton>
 				</ButtonsHolder>}
-			/>
+
+
 
 		</div>
 	)
