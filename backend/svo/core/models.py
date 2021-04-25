@@ -56,9 +56,7 @@ class ResourceManager(models.Manager):
     use_for_related_fields = True
 
     def get_queryset(self):
-        return super().get_queryset() \
-            .annotate(estimation=Avg('resource_applications__resource_estimation',
-                                     output_field=models.FloatField()))
+        return super().get_queryset()
 
 
 class Resource(models.Model):
@@ -70,6 +68,11 @@ class Resource(models.Model):
 
     def __str__(self):
         return self.title
+
+    @property
+    def estimation(self):
+        self.user_applications: models.QuerySet
+        return self.user_applications.aggregate(estimation=Avg('resource_estimation')).get('estimation', 5)
 
 
 class ParkingPlace(models.Model):
