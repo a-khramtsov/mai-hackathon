@@ -23,9 +23,7 @@ class UserManager(BaseUserManager):
     use_for_related_fields = True
 
     def get_queryset(self):
-        return super().get_queryset() \
-            .annotate(estimation=Avg('user_applications__worker_estimation',
-                                     output_field=models.FloatField()))
+        return super().get_queryset()
 
 
 class User(AbstractUser):
@@ -43,6 +41,11 @@ class User(AbstractUser):
     airline = models.ForeignKey(Airline, null=True, blank=True, default=None, on_delete=models.SET_NULL)
 
     objects = UserManager()
+
+    @property
+    def estimation(self):
+        self.user_applications: models.QuerySet
+        return self.user_applications.aggregate(Avg('worker_estimation'))
 
     def __str__(self):
         return self.email + (
