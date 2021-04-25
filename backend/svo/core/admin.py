@@ -31,8 +31,7 @@ class ResourceAdmin(admin.ModelAdmin):
         return obj.resource_estimation
 
     def approved_applications_count(self, obj):
-        return obj.resource_estimation
-
+        return obj.approved_applications_count
 
 
 admin.site.register(models.Resource, ResourceAdmin)
