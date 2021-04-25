@@ -120,3 +120,6 @@ class Application(models.Model):
         else:
             self.status = Application.ApplicationStatuses.APPROVED_BY_WORKER_BUT_NOT_BY_AIRLINE
             self.save()
+
+    def __str__(self):
+        return f"Application#{self.pk} from {str(self.user)} for {str(self.resource)}"
