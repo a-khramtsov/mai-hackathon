@@ -6,7 +6,6 @@ from . import models
 admin.site.register(models.User)
 admin.site.register(models.Resource)
 
-
 admin.site.register(models.Airline)
 admin.site.register(models.ParkingPlace)
 
@@ -22,7 +21,9 @@ class ApplicationAdmin(admin.ModelAdmin):
         'status'
     )
 
+
 admin.site.register(models.Application, ApplicationAdmin)
+
 
 class ExternalTaskAdmin(admin.ModelAdmin):
     list_display = (
