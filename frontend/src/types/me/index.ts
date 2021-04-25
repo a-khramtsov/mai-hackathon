@@ -6,6 +6,7 @@ export type MeType = {
 	last_name: string,
 	avatar: string
 	airline: AirlineType
+	estimation: number
 }
 
 type AirlineType = {

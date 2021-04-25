@@ -9,7 +9,6 @@ import locationIcon from '../../../assets/img/location-icon.png'
 import moment from 'moment'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
-import { applicationsAPI } from 'api'
 
 type PropsTypes = {
 	applications: Array<ApplicationType>
@@ -18,12 +17,25 @@ type PropsTypes = {
 }
 
 const ApplicationsList: FC<PropsTypes> = ({ applications, approve, refuse, ...props }) => {
+
+	const getRatingTheme = (rating: number) => {
+		let theme = null
+		if (rating >= 4) {
+			theme = s.green
+		} else if (rating < 4 && rating >= 2.5) {
+			theme = s.yellow
+		} else {
+			theme = s.red
+		}
+		return theme
+	}
+
 	return (
 		<div className={s.projectsList}>
 
 			{ (applications.length === 0) && <p className={s.emptyList}>No applications</p>}
 			{applications.map(application =>
-				<Link to={`/applications/${application.id}`} key={application.id} className={s.projectsListElement}>
+				<Link to={`/applications/${application.id}`} key={application.id} className={s.projectsListElement + ' ' + getRatingTheme(application.user.estimation)}>
 
 
 					<div className={s.flex} style={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}>
@@ -47,7 +59,7 @@ const ApplicationsList: FC<PropsTypes> = ({ applications, approve, refuse, ...pr
 								<img src={locationIcon} alt="location-icon" />
 								<p>Parking place: {application.parking_place.code}</p>
 							</div>
-							<p className={s.date}>Status: {ApplicationFiltersEnum[application.status]}</p>
+							<p className={s.date}>Status:&nbsp;<span className={getStatusColor(application.status)}>{ApplicationFiltersEnum[application.status]}</span></p>
 							<p className={s.date}>Start date: {moment(application.start_time).format('DD.MM.DD HH:mm')}</p>
 							<p className={s.date}>End date: {moment(application.end_time).format('DD.MM.DD HH:mm')}</p>
 
@@ -61,10 +73,30 @@ const ApplicationsList: FC<PropsTypes> = ({ applications, approve, refuse, ...pr
 }
 
 export const canApproveOrRefuse = (status: ApplicationFiltersEnum) => {
-	if (status === ApplicationFiltersEnum.NEW || status === ApplicationFiltersEnum.APPROVED_BY_WORKER_BUT_NOT_BY_AIRLINE)
+	if (status === ApplicationFiltersEnum.APPROVED_BY_AIRLINE)
 		return true
 	return false
 }
 
+
+const getStatusColor = (status: ApplicationFiltersEnum) => {
+	let theme = ''
+	switch (status) {
+		case ApplicationFiltersEnum.APPROVED_BY_AIRLINE:
+		case ApplicationFiltersEnum.REFUSED_BY_DISPATCHER:
+		case ApplicationFiltersEnum.CANCELLED: {
+			theme = s.c_red
+			break
+		}
+
+		case ApplicationFiltersEnum.APPROVED_BY_AIRLINE:
+		case ApplicationFiltersEnum.APPROVED_BY_DISPATCHER: {
+			theme = s.c_green
+			break
+		}
+
+	}
+	return theme
+}
 
 export default ApplicationsList;

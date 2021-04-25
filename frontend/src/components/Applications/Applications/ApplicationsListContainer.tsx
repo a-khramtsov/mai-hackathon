@@ -27,15 +27,15 @@ const getStatusOption = (status: FilterForRequestEnum) => {
 	let statuses = [] as Array<ApplicationFiltersEnum>
 	switch (status) {
 		case FilterForRequestEnum.NEW: {
-			statuses = [ApplicationFiltersEnum.NEW, ApplicationFiltersEnum.APPROVED_BY_WORKER_BUT_NOT_BY_AIRLINE]
+			statuses = [ApplicationFiltersEnum.APPROVED_BY_AIRLINE]
 			break
 		}
 		case FilterForRequestEnum.APPROVED: {
-			statuses = [ApplicationFiltersEnum.APPROVED_BY_AIRLINE, ApplicationFiltersEnum.APPROVED_BY_DISPATCHER]
+			statuses = [ApplicationFiltersEnum.APPROVED_BY_DISPATCHER]
 			break
 		}
 		case FilterForRequestEnum.REFUSED: {
-			statuses = [ApplicationFiltersEnum.REFUSED_BY_AIRLINE, ApplicationFiltersEnum.REFUSED_BY_DISPATCHER]
+			statuses = [ApplicationFiltersEnum.REFUSED_BY_DISPATCHER]
 			break
 		}
 	}

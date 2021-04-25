@@ -65,7 +65,7 @@ export const HeaderMenu: React.FC<HeaderMenuProps> = ({ anchorEl, handleClose, .
 					<img src={me.avatar} alt="user-img" />
 					<div className={s.userInfo}>
 						<p className={s.userName}>{(me.last_name || '') + ' ' + (me.first_name || '')}</p>
-						<p className={s.userRole}>Airline: {me.airline.name}</p>
+						<p className={s.userRole}>Dispatcher</p>
 					</div>
 				</div>
 

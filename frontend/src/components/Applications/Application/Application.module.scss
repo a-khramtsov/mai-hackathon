@@ -127,3 +127,15 @@
 	align-items: center;
 	justify-content: center;
 }
+
+.stars {
+	display: flex;
+
+	& .projectName {
+		margin: 0 0 0 10px !important;
+	}
+
+	& svg path {
+		fill: #ffb800;
+	}
+}

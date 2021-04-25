@@ -8,15 +8,22 @@ export const applicationsAPI = {
 	getApplications: (options: OptionsType): Promise<AxiosResponse<Array<ApplicationType>>> => {
 		const queryOptions = queryString.stringify(options, { arrayFormat: 'comma' })
 
-		return instance.get('/airline/applications/' + '?' + queryOptions)
+		return instance.get('/dispatcher/applications/' + '?' + queryOptions)
 	},
 	getApplication: (id: number): Promise<AxiosResponse<ApplicationType>> => {
-		return instance.get(`/airline/applications/${id}/`)
+		return instance.get(`/dispatcher/applications/${id}/`)
+	},
+	editApplication(application: ApplicationType) {
+		const { id, ...restApplication } = application
+		return instance.patch(`/dispatcher/applications/${id}/`, restApplication)
 	},
 	approveApplication: (id: number): Promise<AxiosResponse<undefined>> => {
-		return instance.get(`/airline/applications/${id}/approve/`)
+		return instance.get(`/dispatcher/applications/${id}/approve/`)
 	},
 	refuseApplication: (id: number): Promise<AxiosResponse<undefined>> => {
-		return instance.get(`/airline/applications/${id}/refuse/`)
+		return instance.get(`/dispatcher/applications/${id}/refuse/`)
+	},
+	setEstimation: (id: number, val: number): Promise<AxiosResponse<undefined>> => {
+		return instance.post(`/dispatcher/applications/${id}/estimate/`, { estimation: val })
 	},
 }

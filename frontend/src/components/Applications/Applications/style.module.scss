@@ -1,3 +1,5 @@
+@import url('../../../assets/scss/Colors.scss');
+
 .projectsListBlock {
 	display: flex;
 	flex-direction: column;
@@ -112,4 +114,28 @@
 	max-height: 100px;
 	margin-right: 16px;
 	object-fit: cover;
+}
+
+.green {
+	border: 1px solid green;
+}
+
+.yellow {
+	border: 1px solid #ffb800;
+}
+
+.red {
+	border: 1px solid #fe5834;
+}
+
+.c_green {
+	color: green;
+}
+
+.c_yellow {
+	color: #ffb800;
+}
+
+.c_red {
+	color: #fe5834;
 }

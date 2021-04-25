@@ -62,7 +62,7 @@ const ProjectContainer = ({ needRefresh, setNeedRefresh }: PropsType) => {
 
 	return (
 		<Block style={{ padding: 20 }} fullHeight={true}>
-			<Application application={application} approve={approve} refuse={refuse} />
+			<Application application={application} approve={approve} refuse={refuse} setNeedRefresh={setNeedRefresh} />
 		</Block>
 
 	)

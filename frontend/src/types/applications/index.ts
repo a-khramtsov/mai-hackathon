@@ -19,6 +19,7 @@ export type ApplicationType = {
 		code: string
 	}
 	user: MeType
+	worker_estimation: number
 }
 
 export enum ApplicationFiltersEnum {

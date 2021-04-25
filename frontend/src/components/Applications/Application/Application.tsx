@@ -13,21 +13,42 @@ import moment from 'moment'
 import { applicationsAPI } from 'api'
 import { canApproveOrRefuse } from 'components/Applications/Applications/ApplicationsList'
 import locationIcon from '../../../assets/img/location-icon.png'
+import EditApplicationModal from '../../Common/Modals/EditApplicationModal'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStar as faStarEmpty } from '@fortawesome/free-regular-svg-icons';
+import { faStar } from '@fortawesome/free-solid-svg-icons'
+import classnames from 'classnames'
+import EstimationForm from 'components/Applications/Application/EstimationForm.tsx'
+
 
 type PropsType = {
 	application: ApplicationType
 	approve: () => void
 	refuse: () => void
+	setNeedRefresh?: (need: boolean) => void
 }
 
-const Application = ({ application, approve, refuse, ...props }: PropsType) => {
+const Application = ({ application, approve, refuse, setNeedRefresh, ...props }: PropsType) => {
 	const [modalOpen, setModalOpen] = useState(false)
+
+
+	const setEstimation = async (val: number) => {
+		const response = await applicationsAPI.setEstimation(application.id, val)
+		if (response.status >= 200 && response.status < 300) {
+			if (setNeedRefresh) {
+				setNeedRefresh(true)
+			}
+		}
+	}
 
 
 
 	if (!application.id) {
 		return null
 	}
+
+	const estimation = application.worker_estimation
+
 
 	return (
 		<div className={s.projectBlock}>
@@ -47,24 +68,90 @@ const Application = ({ application, approve, refuse, ...props }: PropsType) => {
 
 
 					<p className={s.projectName} style={{ fontSize: 16 }}>{application.resource.title}</p>
-					<p className={s.projectName}>Start date: {moment(application.start_time).format('YYYY.MM.DD HH:mm')}</p>
 					<p className={s.projectName}>Parking place: {application.parking_place.code}</p>
+					<p className={s.projectName}>Start date: {moment(application.start_time).format('YYYY.MM.DD HH:mm')}</p>
 					<p className={s.projectName}>End date: {moment(application.end_time).format('YYYY.MM.DD HH:mm')}</p>
 				</div>
+
+
+				{estimation ?
+					<div>
+						<p className={s.projectName}>Estimation: {estimation}</p>
+						<div className={s.stars}>
+							{Array.from({ length: +estimation.toFixed() }).map((star, counter) => <FontAwesomeIcon icon={faStar} key={counter} />)}
+							{Array.from({ length: 5 - +estimation.toFixed() }).map((star, counter) => <FontAwesomeIcon icon={faStarEmpty} key={counter} />)}
+							{estimation ? <h4 className={s.projectName}>{estimation.toFixed(1)}</h4> : null}
+						</div>
+
+					</div> :
+					<div>
+						<p className={s.projectName}>Set estimation</p>
+						<EstimationForm
+							setEstimation={setEstimation}
+							application={application}
+						/>
+					</div>}
+
+
 			</div>
+
 
 
 
 			{ canApproveOrRefuse(application.status) &&
 				<ButtonsHolder>
+					<SubmitRoundedButton onClick={() => setModalOpen(true)}>Edit</SubmitRoundedButton>
 					<SubmitRoundedButton onClick={approve}>Approve</SubmitRoundedButton>
 					<DismissSimpleButton onClick={refuse}>Refuse</DismissSimpleButton>
 				</ButtonsHolder>}
 
 
-
+			{modalOpen && <EditApplicationModal
+				application={application}
+				open={modalOpen}
+				handleClose={() => setModalOpen(false)}
+				submitFunction={() => {
+					if (setNeedRefresh) setNeedRefresh(true)
+				}}
+			/>}
 		</div>
 	)
 }
+
+
+type ButtonPropsType = {
+	value: number
+	rating: number
+	setRating: (val: number) => void
+	hoverRating: number
+	setHoverRating: (val: number) => void
+
+}
+
+const RatingButton = ({ value, rating, setRating, hoverRating, setHoverRating }: ButtonPropsType) => {
+	let icon = faStarEmpty
+	let iconClassName = s.empty
+
+	if (value <= rating || value <= hoverRating) {
+		icon = faStar
+		iconClassName = s.filled
+	}
+	return (
+		<button
+			onClick={() => { setRating(value) }}
+			onMouseEnter={() => setHoverRating(value)}
+			onMouseLeave={() => setHoverRating(0)}
+			className={classnames(s.ratingButton, iconClassName)}
+		>
+			<FontAwesomeIcon
+				icon={icon}
+			/>
+		</button>
+	)
+}
+
+
+
+
 
 export default Application;
