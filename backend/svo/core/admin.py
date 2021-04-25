@@ -14,7 +14,7 @@ admin.site.register(models.ParkingPlace)
 class ApplicationAdmin(admin.ModelAdmin):
     list_display = (
         'pk',
-        'resource'
+        'resource',
         'user',
         'parking_place'
         'start_time',
