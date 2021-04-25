@@ -31,8 +31,10 @@ class ApplicationViewSet(mixins.ListModelMixin,
     @action(methods=["POST"], detail=True)
     def estimate(self, *args, **kwargs):
         application = self.get_object()
-        application.resource_estimation = self.request.data['resource_estimation']
-        application.service_estimation = self.request.data['service_estimation']
+        if self.request.data.get('resource_estimation', None):
+            application.resource_estimation = self.request.data['resource_estimation']
+        elif self.request.data.get('service_estimation', None):
+            application.service_estimation = self.request.data['service_estimation']
         application.save()
         return Response(status=204)
 
