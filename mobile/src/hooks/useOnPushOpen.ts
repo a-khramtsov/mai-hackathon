@@ -1,30 +1,35 @@
 import { useEffect } from "react";
 import messaging from "@react-native-firebase/messaging";
-import useTypedNavigation from "./useTypedNavigation";
+import { useNavigation } from "@react-navigation/native";
 
 export default () => {
-    const navigation = useTypedNavigation<"Main">();
+    const navigation = useNavigation();
     useEffect(() => {
-        messaging().onNotificationOpenedApp(async () => {
-            try {
-                // const order = await getOrder(orderUuid);
-                // navigation.navigate("MyOrder", { item: order });
-            } catch (e) {
-                // console.log("ERROR ON FETCHING AN ORDER", e.response);
-            }
+        messaging().onNotificationOpenedApp(data => {
+            navigation.navigate("Home", { screen: "ApplicationHistory" });
+            // console.log(JSON.stringify(data));
+            // const order = await getOrder(orderUuid);
+            // navigation.navigate("MyOrder", { item: order });
+            // console.log("ERROR ON FETCHING AN ORDER", e.response);
         });
         messaging()
             .getInitialNotification()
-            .then(async message => {
+            .then(message => {
                 if (message) {
-                    const {} = message;
-                    try {
-                        // const order = await getOrder(orderUuid);
-                        // navigation.navigate("MyOrder", { item: order });
-                    } catch (e) {
-                        // console.log("ERROR ON FETCHING AN ORDER", e.response);
-                    }
+                    // const {} = message;
+
+                    navigation.navigate("Home", {
+                        screen: "ApplicationHistory",
+                    });
+                    console.log(JSON.stringify(messaging));
+
+                    // const order = await getOrder(orderUuid);
+                    // navigation.navigate("MyOrder", { item: order });
+                    // console.log("ERROR ON FETCHING AN ORDER", e.response);
                 }
+            })
+            .catch(() => {
+                return;
             });
     }, []);
 };

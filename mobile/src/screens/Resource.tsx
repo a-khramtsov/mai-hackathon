@@ -23,11 +23,14 @@ const Resource: FC = () => {
     const navigation = useTypedNavigation<"Home">();
     const [start, setStart] = useState<Date>();
     const [end, setEnd] = useState<Date>();
-    const [parkingSpace, setParkingSpace] = useState("");
+    const { parkingPlaces } = useSelector((state: RootState) => state.app);
+    const [parkingSpace, setParkingSpace] = useState(parkingPlaces[0].id);
     const user = useSelector((state: RootState) => state.user.id);
     const dispatch = useDispatch();
+    const [loading, setLoading] = useState(false);
 
     const onSubmit = useCallback(() => {
+        setLoading(true);
         createApplication({
             start_time: dayjs(start).format("YYYY-MM-DDTHH:mm"),
             end_time: dayjs(end).format("YYYY-MM-DDTHH:mm"),
@@ -45,7 +48,8 @@ const Resource: FC = () => {
                     "ERROR ON CREATING APPLICATION",
                     JSON.stringify(e.response, null, 2),
                 ),
-            );
+            )
+            .finally(() => setLoading(false));
     }, [dispatch, end, navigation, parkingSpace, resource.id, start, user]);
 
     return (
@@ -65,6 +69,8 @@ const Resource: FC = () => {
                         end,
                         parkingSpace,
                         onSubmit,
+                        loading,
+                        disabled: !start || !end,
                     }}
                 />
             </ScrollView>
