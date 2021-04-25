@@ -1,0 +1,28 @@
+.projectsFiltersBlock {
+	margin: 10px;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+
+	& .filter {
+		border-radius: 10px;
+		font-weight: bold;
+		background: #f3f3f3;
+		color: #000;
+		font-size: 13px;
+		line-height: 16px;
+		padding: 7px 14px;
+		margin-right: 10px;
+		margin-bottom: 10px;
+		cursor: pointer;
+
+		&:last-child {
+			margin-right: 0;
+		}
+
+		&.active {
+			background: #007eff;
+			color: #ffffff;
+		}
+	}
+}

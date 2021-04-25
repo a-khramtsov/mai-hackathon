@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from "react";
+import React, { FC, useCallback, useEffect, useState } from "react";
 import { FlatList } from "react-native-gesture-handler";
 import { RefreshControl, StyleSheet, View } from "react-native";
 import { Appbar, Headline } from "react-native-paper";
@@ -7,15 +7,17 @@ import ApplicationCard from "../components/ApplicationCard";
 import { RootState } from "../reducers";
 import { setApplications } from "../reducers/app";
 import { getApplications } from "../api";
-import { useFocusEffect } from "@react-navigation/native";
+import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 
 const ApplicationHistory: FC = () => {
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const { applications } = useSelector((state: RootState) => state.app);
-    useFocusEffect(() => {
+    const isFocused = useIsFocused();
+    useEffect(() => {
         loadApplications();
-    });
+        console.log("LoaDING");
+    }, [isFocused]);
     const loadApplications = useCallback(() => {
         getApplications()
             .then(i => {

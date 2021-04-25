@@ -1,0 +1,157 @@
+@import url('../../../assets/scss/Colors.scss');
+
+.projectsListBlock {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+
+	& .projectsList {
+		overflow-y: auto;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		&::-webkit-scrollbar {
+			width: 5px;
+			background: #f4f4f4;
+			cursor: pointer;
+		}
+
+		&::-webkit-scrollbar-track {
+			border-radius: 10px;
+		}
+
+		&::-webkit-scrollbar-thumb {
+			background: #c5c5c5;
+		}
+		& .projectsListElement {
+			padding: 10px;
+			display: grid;
+			grid-gap: 10px;
+
+			&:hover {
+				background: #f3f3f3;
+			}
+
+			& img.previewImg {
+				border-radius: 12px;
+				width: 100%;
+			}
+
+			& .projectInfo {
+				display: flex;
+				flex-direction: column;
+
+				& .projectName {
+					font-size: 15px;
+					line-height: 120%;
+					color: #000000;
+					font-weight: bold;
+				}
+
+				& .projectLocation {
+					display: flex;
+					align-items: center;
+					font-size: 14px;
+					letter-spacing: -0.3px;
+					margin-top: 2px;
+					color: #a6acbe;
+					font-weight: bold;
+					width: 100%;
+
+					& img {
+						margin-right: 6px;
+					}
+				}
+
+				& .serviceInfo {
+					display: flex;
+					align-items: flex-end;
+					justify-content: space-between;
+					flex: 1;
+
+					& .price {
+						font-weight: bold;
+						font-size: 14px;
+						line-height: 17px;
+						color: #000000;
+
+						& span {
+							font-size: 12px;
+							line-height: 15px;
+							color: #a6acbe;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+.date {
+	font-size: 13px;
+	display: flex;
+	font-weight: 700;
+	margin-top: 4px;
+	align-items: center;
+	color: #a6acbe;
+}
+
+.flex {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.button {
+	margin-left: 6px;
+	background: #fafafa;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	border-radius: 4px;
+}
+
+.emptyList {
+	margin: 10px auto;
+	text-align: center;
+	font-size: 13px;
+	font-weight: 700;
+}
+
+.previewImg {
+	width: 100%;
+	max-width: 100px;
+	max-height: 100px;
+	margin-right: 16px;
+	object-fit: cover;
+}
+
+.green {
+	border: 1px solid green;
+}
+
+.yellow {
+	border: 1px solid #ffb800;
+}
+
+.red {
+	border: 1px solid #fe5834;
+}
+
+.c_green {
+	color: green;
+}
+
+.c_yellow {
+	color: #ffb800;
+}
+
+.c_red {
+	color: #fe5834;
+}
+
+.status {
+	// max-width: 200px;
+}
