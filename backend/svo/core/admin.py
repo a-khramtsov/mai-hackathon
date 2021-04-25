@@ -5,10 +5,29 @@ from . import models
 # Register your models here.
 admin.site.register(models.User)
 admin.site.register(models.Resource)
-admin.site.register(models.Application)
+
+
 admin.site.register(models.Airline)
 admin.site.register(models.ParkingPlace)
 
+
+class ApplicationAdmin(admin.ModelAdmin):
+    list_display = (
+        'pk',
+        'resource__title',
+        'resource__photo'
+        'user__airline',
+        'user__email',
+        'user__username',
+        'user__first_name',
+        'user__last_name',
+        'parking_place__code'
+        'start_time',
+        'end_time',
+        'status'
+    )
+
+admin.site.register(models.Application, ApplicationAdmin)
 
 class ExternalTaskAdmin(admin.ModelAdmin):
     list_display = (
