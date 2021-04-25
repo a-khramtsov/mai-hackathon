@@ -104,9 +104,9 @@ class Application(models.Model):
 
     parking_place = models.ForeignKey(ParkingPlace, null=True, blank=True, on_delete=models.SET_NULL)
 
-    service_estimation = models.IntegerField(null=True)
-    worker_estimation = models.IntegerField(null=True)
-    resource_estimation = models.IntegerField(null=True)
+    service_estimation = models.IntegerField(null=True, blank=True)
+    worker_estimation = models.IntegerField(null=True, blank=True)
+    resource_estimation = models.IntegerField(null=True, blank=True)
 
     def approve_by_airline(self):
         self.status = Application.ApplicationStatuses.APPROVED_BY_AIRLINE
