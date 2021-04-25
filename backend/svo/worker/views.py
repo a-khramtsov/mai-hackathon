@@ -1,4 +1,7 @@
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics, viewsets, status, mixins, permissions
+from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from . import models, serializers
@@ -14,6 +17,21 @@ class ApplicationViewSet(mixins.ListModelMixin,
     serializer_class = serializers.ApplicationSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    @swagger_auto_schema(method="post", request_body=openapi.Schema(
+                             type=openapi.TYPE_OBJECT,
+                             required=['estimation'],
+                             properties={
+                                 'resource_estimation': openapi.Schema(type=openapi.TYPE_INTEGER),
+                                 'service_estimation': openapi.Schema(type=openapi.TYPE_INTEGER)
+                             },
+                         ), operation_description="POST /api/dispatcher/applications/{id}/estimate/")
+    @action(methods=["POST"], detail=True)
+    def estimate(self, *args, **kwargs):
+        application = self.get_object()
+        application.resource_estimation = self.request.data['resource_estimation']
+        application.service_estimation = self.request.data['service_estimation']
+        application.save()
+        return Response(status=204)
 
 class ResourceListAPI(generics.ListAPIView):
 
