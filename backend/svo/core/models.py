@@ -145,19 +145,19 @@ class ExternalTask(models.Model):
 
 
 @receiver(post_save, sender=Application)
-def save_application_to_task(sender: Application, **kwargs):
-    if sender.status == 5:
+def save_application_to_task(sender, instance, **kwargs):
+    if instance.status == 5:
         res = ExternalTask()
-        res.resource_title = sender.resource.title
-        res.resource_description = sender.resource.description
-        res.resource_geo_lat = sender.resource.geo_lat
-        res.resource_geo_lon = sender.resource.geo_lon
-        res.start_time = sender.start_time
-        res.end_time = sender.end_time
-        res.airline = sender.user.airline.name if sender.user.airline else None
-        res.user_email = sender.user.email
-        res.user_username = sender.user.username
-        res.user_first_name = sender.user.first_name
-        res.user_last_name = sender.user.last_name
-        res.parking_place = sender.parking_place.code if sender.parking_place else None
+        res.resource_title = instance.resource.title
+        res.resource_description = instance.resource.description
+        res.resource_geo_lat = instance.resource.geo_lat
+        res.resource_geo_lon = instance.resource.geo_lon
+        res.start_time = instance.start_time
+        res.end_time = instance.end_time
+        res.airline = instance.user.airline.name if instance.user.airline else None
+        res.user_email = instance.user.email
+        res.user_username = instance.user.username
+        res.user_first_name = instance.user.first_name
+        res.user_last_name = instance.user.last_name
+        res.parking_place = instance.parking_place.code if instance.parking_place else None
         res.save()
