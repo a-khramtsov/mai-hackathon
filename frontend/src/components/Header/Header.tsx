@@ -21,6 +21,7 @@ const Header = (props: any) => {
 	return (
 		<div className={s.headerHolder}>
 			<div className={s.header}>
+				<div className={s.title}>DISPATCHER APPLICATION</div>
 				<button className={s.userImg} onClick={handleClick}><img src={me.avatar} alt="user-img" /></button>
 			</div>
 

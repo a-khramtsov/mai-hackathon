@@ -1,5 +1,12 @@
 @import '../../assets/scss/Colors.scss';
 
+.title {
+	font-family: 'Proxima Nova Rg' !important;
+	font-size: 18px;
+	font-weight: bold;
+	color: #fff;
+}
+
 .headerHolder {
 	width: 100%;
 	height: 65px;
@@ -8,13 +15,14 @@
 		background: $primaty_orange;
 		width: 100%;
 		height: 65px;
+		padding: 0 36px;
+		box-sizing: border-box;
 
 		display: flex;
-		justify-content: flex-end;
+		justify-content: space-between;
 		align-items: center;
 
 		& .userImg {
-			margin-right: 36px;
 			width: 40px;
 			height: 40px;
 			border-radius: 100%;
