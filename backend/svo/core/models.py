@@ -1,7 +1,11 @@
+from _signal import signal
+
 from django.contrib.auth.models import AbstractUser, UserManager as BaseUserManager
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models import Avg
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -124,3 +128,36 @@ class Application(models.Model):
     def __str__(self):
         return f"Application#{self.pk} from {str(self.user)} for {str(self.resource)}"
 
+
+class ExternalTask(models.Model):
+    resource_title = models.TextField(null=True, blank=True)
+    resource_description = models.TextField(null=True, blank=True)
+    resource_geo_lat = models.FloatField(null=True, blank=True)
+    resource_geo_lon = models.FloatField(null=True, blank=True)
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
+    airline = models.CharField()
+    user_email = models.TextField(null=True, blank=True)
+    user_username = models.TextField(null=True, blank=True)
+    user_first_name = models.TextField(null=True, blank=True)
+    user_last_name = models.TextField(null=True, blank=True)
+    parking_place = models.TextField(null=True, blank=True)
+
+
+@receiver(post_save, sender=Application)
+def save_application_to_task(sender: Application, **kwargs):
+    if sender.status == Application.ApplicationStatuses.APPROVED_BY_DISPATCHER:
+        res = ExternalTask()
+        res.resource_title = sender.resource.title
+        res.resource_description = sender.resource.description
+        res.resource_geo_lat = sender.resource.geo_lat
+        res.resource_geo_lon = sender.resource.geo_lon
+        res.start_time = sender.start_time
+        res.end_time = sender.end_time
+        res.airline = sender.user.airline.name if sender.user.airline else None
+        res.user_email = sender.user.email
+        res.user_username = sender.user.username
+        res.user_first_name = sender.user.first_name
+        res.user_last_name = sender.user.last_name
+        res.parking_place = sender.parking_place.code if sender.parking_place else None
+        res.save()
