@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.db.models import Count
+from django.db.models import Count, Avg
 
 from . import models
 
@@ -16,14 +16,19 @@ class ResourceAdmin(admin.ModelAdmin):
     )
 
     def get_queryset(self, request):
-        return super().get_queryset(request).annotate(applications_count=Count('resource_applications'))
+        return super().get_queryset(request).annotate(
+            applications_count=Count('resource_applications'),
+            resource_estimation=Avg('resource_applications__resource_estimation')
+        )
 
     def applications_count(self, obj):
         return obj.applications_count
 
+    def resource_estimation(self, obj):
+        return obj.resource_estimation
+
 
 admin.site.register(models.Resource, ResourceAdmin)
-
 admin.site.register(models.Airline)
 admin.site.register(models.ParkingPlace)
 
